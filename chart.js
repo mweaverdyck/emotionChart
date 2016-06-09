@@ -19,9 +19,9 @@ function num2time(num) {
         case 11: return '7 hr';
         case 12: return '20 hr';
         case 13: return '2 day';
-        case 14: return '15 day';
+        case 14: return '1 week';
         case 15: return '1 month';
-        case 16: return '3 month';
+        case 16: return '2 month';
         default: return num;
     }
 }
@@ -95,7 +95,7 @@ $(function () {
             }],
         },
         tooltip: {
-            backgroundColor: 'rgba(255, 255, 255, 0)',
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
             borderWidth: 0,
             shadow: false,
             headerFormat: '',
@@ -113,7 +113,9 @@ $(function () {
                 // cursor: 'ns-resize'
             // }
         },
+        credits: false,
         series: [{
+            id: 'user-data',
             // data: [[0, 0]],
             data: [0, 0, 0, 0, 0, 0],
             pointStart: -5,
@@ -125,6 +127,9 @@ $(function () {
                 symbol: 'circle',
             },
             color: '#7CB5EC',
+            animation: {
+                duration: 2000
+            },
             point: {
                 events: {
                     click: function () {
@@ -134,13 +139,38 @@ $(function () {
                     }
                 }
             },
+        }, {
+            // Temporary data moving with mouse
+            data: [[0, 0]],
+            draggableX: true,
+            draggableY: true,
+            marker: {
+                symbol: 'circle',
+            },
+            color: 'rgba(124,181,236, 0.3)'
         }/*, {
             data: [0, 0, 0, 0, 0, 0],
             pointStart: -5,
             marker: {
                 symbol: 'circle',
             },
-            color: '#7CB5EC'
+            color: '#7CB5EC',
+            animation: {
+                duration: 2000
+            }
         }*/]
+    });
+
+    // Buttons
+    $('#resetBtn').click(function () {
+        var chart = $('#container').highcharts(),
+            series = chart.get('user-data');
+        series.update({
+            data: [0, 0, 0, 0, 0, 0]
+        });
+    });
+
+    $('#nextBtn').click(function () {
+    
     });
 });
