@@ -117,12 +117,12 @@ $(function () {
         series: [{
             id: 'user-data',
             // data: [[0, 0]],
-            data: [0, 0, 0, 0, 0, 0],
-            pointStart: -5,
+            data: [0, 0, 0, 0, 0],
+            pointStart: -4,
             draggableY: true,
             dragMaxY: 50,
             dragMinY: -50,
-            dragSensitivity: 5,
+            dragSensitivity: 1,
             marker: {
                 symbol: 'circle',
             },
@@ -162,15 +162,25 @@ $(function () {
     });
 
     // Buttons
-    $('#resetBtn').click(function () {
+    function resetData() {
         var chart = $('#container').highcharts(),
             series = chart.get('user-data');
         series.update({
-            data: [0, 0, 0, 0, 0, 0]
+            data: [0, 0, 0, 0, 0]
         });
-    });
+    }
+
+    $('#resetBtn').click(resetData);
 
     $('#nextBtn').click(function () {
-    
+        var chart = $('#container').highcharts(),
+            series = chart.get('user-data'),
+            data = [];
+        for (var pt in series.data) {
+            // console.log([pt, num2time(series.data[pt].x), series.data[pt].x]);
+            data.push([num2time(series.data[pt].x), series.data[pt].x]);
+        }
+        console.log(data);
+        resetData();
     });
 });
