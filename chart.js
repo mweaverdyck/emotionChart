@@ -42,7 +42,6 @@ $(function () {
                     for (var pt in series.data) {
                         if (series.data[pt].x == x) {
                             unique = false;
-                            console.log(series.data[pt]);
                             series.data[pt].update(y);
                             break;
                         }
@@ -129,7 +128,6 @@ $(function () {
             point: {
                 events: {
                     click: function () {
-                        console.log(this);
                         if (this.series.data.length > 1 && this.x > 0) {
                             this.remove();
                         }
