@@ -6,4 +6,4 @@ EMOTIONS = [
 	['Emotion 4', 'Draw yourself']
 ];
 
-RANDOMIZE = true;
+RANDOMIZE = false;

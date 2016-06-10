@@ -43,6 +43,33 @@ $(function () {
         shuffleArray(EMOTIONS);
     }
 
+    userDataSeries = {
+        id: 'user-data',
+        // data: [[0, 0]],
+        data: [0, 0, 0, 0, 0],
+        pointStart: -4,
+        draggableY: true,
+        dragMaxY: 50,
+        dragMinY: -50,
+        dragSensitivity: 1,
+        marker: {
+            symbol: 'circle',
+        },
+        color: '#7CB5EC',
+        animation: {
+            duration: 2000
+        },
+        point: {
+            events: {
+                click: function () {
+                    if (this.series.data.length > 1 && this.x > 0) {
+                        this.remove();
+                    }
+                }
+            }
+        },
+    }
+
     $('#container').highcharts({
         chart: {
             type: 'line',
@@ -52,7 +79,7 @@ $(function () {
                     // find the clicked values and the series
                     var x = Math.round(e.xAxis[0].value),
                         y = e.yAxis[0].value,
-                        series = this.series[0];
+                        series = $('#container').highcharts().get('user-data');
 
                     var unique = true;
                     for (var pt in series.data) {
@@ -130,32 +157,9 @@ $(function () {
             // }
         },
         credits: false,
-        series: [{
-            id: 'user-data',
-            // data: [[0, 0]],
-            data: [0, 0, 0, 0, 0],
-            pointStart: -4,
-            draggableY: true,
-            dragMaxY: 50,
-            dragMinY: -50,
-            dragSensitivity: 1,
-            marker: {
-                symbol: 'circle',
-            },
-            color: '#7CB5EC',
-            animation: {
-                duration: 2000
-            },
-            point: {
-                events: {
-                    click: function () {
-                        if (this.series.data.length > 1 && this.x > 0) {
-                            this.remove();
-                        }
-                    }
-                }
-            },
-        }, {
+        series: [
+        userDataSeries,
+        {
             // Temporary data moving with mouse
             data: [[0, 0]],
             draggableX: true,
@@ -181,9 +185,9 @@ $(function () {
     function resetData() {
         var chart = $('#container').highcharts(),
             series = chart.get('user-data');
-        series.update({
-            data: [0, 0, 0, 0, 0]
-        });
+        series.remove();
+        userDataSeries.data = [0, 0, 0, 0, 0];
+        chart.addSeries(userDataSeries);
     }
 
     $('#resetBtn').click(resetData);

@@ -1,17 +1,24 @@
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
-    <!-- <script src="https://rawgithub.com/highslide-software/draggable-points/master/draggable-points.js"></script> -->
-	<script src="draggable-points.js"></script>
-</head>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <!-- <script src="https://rawgithub.com/highslide-software/draggable-points/master/draggable-points.js"></script> -->
+        <script src="js/draggable-points.js"></script>
 
-<div id="container" style="min-width: 480px; height: 700px; margin: 0 auto"></div>
-<div id="drag"></div>
-<div id="drop"></div>
-<div id="buttons" align="center">
-	<button id="resetBtn" class="autocompare">Reset</button>
-	<button id="nextBtn" class="autocompare">Next</button>
-</div>
-<script src="constants.js"></script>
-<script src="chart.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="container" style="min-width: 480px; height: 700px; margin: 0 auto"></div>
+        <div id="drag"></div>
+        <div id="drop"></div>
+        <div id="buttons" align="center">
+            <button id="resetBtn" class="autocompare btn btn-default" style="margin: 20px">Reset</button>
+            <button id="nextBtn" class="autocompare btn btn-primary" style="margin: 20px">Next</button>
+        </div>
+        <script src="js/constants.js"></script>
+        <script src="js/chart.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>
