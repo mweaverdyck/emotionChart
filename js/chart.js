@@ -43,6 +43,7 @@ $(function () {
         shuffleArray(EMOTIONS);
     }
 
+
     userDataSeries = {
         id: 'user-data',
         // data: [[0, 0]],
@@ -68,7 +69,8 @@ $(function () {
                 }
             }
         },
-    }
+    };
+
 
     $('#container').highcharts({
         chart: {
@@ -181,21 +183,25 @@ $(function () {
         }*/]
     });
 
+    
+    var chart = $('#container').highcharts();
+
+
     // Buttons
     function resetData() {
-        var chart = $('#container').highcharts(),
-            series = chart.get('user-data');
+        var series = chart.get('user-data');
         series.remove();
         userDataSeries.data = [0, 0, 0, 0, 0];
         chart.addSeries(userDataSeries);
     }
 
+
     $('#resetBtn').click(resetData);
 
+
     $('#nextBtn').click(function () {
-        // Save current data
-        var chart = $('#container').highcharts(),
-            series = chart.get('user-data'),
+        // Save current data,
+        var series = chart.get('user-data'),
             data = [];
         for (var pt in series.data) {
             // console.log([pt, num2time(series.data[pt].x), series.data[pt].x]);
