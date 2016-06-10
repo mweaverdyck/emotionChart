@@ -1,3 +1,15 @@
+index = 0;
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
 function num2time(num) {
     // convert numbers to reasonable time
     if (num === 0) {
@@ -27,6 +39,10 @@ function num2time(num) {
 }
 
 $(function () {
+    if (RANDOMIZE) {
+        shuffleArray(EMOTIONS);
+    }
+
     $('#container').highcharts({
         chart: {
             type: 'line',
@@ -53,10 +69,10 @@ $(function () {
             }
         },
         title: {
-            text: 'Surprise'
+            text: EMOTIONS[index][0]
         },
         subtitle: {
-            text: 'Draw it'
+            text: EMOTIONS[index][1]
         },
         xAxis: {
             crosshair: true,
@@ -173,6 +189,7 @@ $(function () {
     $('#resetBtn').click(resetData);
 
     $('#nextBtn').click(function () {
+        // Save current data
         var chart = $('#container').highcharts(),
             series = chart.get('user-data'),
             data = [];
@@ -180,7 +197,16 @@ $(function () {
             // console.log([pt, num2time(series.data[pt].x), series.data[pt].x]);
             data.push([num2time(series.data[pt].x), series.data[pt].x]);
         }
+        console.log(EMOTIONS[index][0]);
         console.log(data);
-        resetData();
+
+        // Go to next or finish
+        index += 1;
+        if (index < EMOTIONS.length) {
+            chart.setTitle({ text: EMOTIONS[index][0] }, { text: EMOTIONS[index][1] });
+            resetData();
+        } else {
+            alert('Finished!');
+        }
     });
 });
