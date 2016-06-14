@@ -1,5 +1,8 @@
 index = 0;
 
+
+/* HELPER FUNCTIONS */
+
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -38,11 +41,16 @@ function num2time(num) {
     }
 }
 
+/* END OF HELPER FUNCTIONS */
+
+
 $(function () {
     if (RANDOMIZE) {
         shuffleArray(EMOTIONS);
     }
 
+
+    /* HIGHCHARTS OPTIONS */
 
     userDataSeries = {
         id: 'user-data',
@@ -56,7 +64,7 @@ $(function () {
         marker: {
             symbol: 'circle',
         },
-        color: '#7CB5EC',
+        color: 'rgba(124,181,236, 1)',
         animation: {
             duration: 2000
         },
@@ -69,6 +77,14 @@ $(function () {
                 }
             }
         },
+        // events: {
+        //     mouseOver: function () {
+        //         console.log('over');
+        //     },
+        //     mouseOut: function () {
+        //         console.log('out');
+        //     }
+        // }
     };
 
 
@@ -152,20 +168,22 @@ $(function () {
         plotOptions: {
             series: {
                 stickyTracking: false,
-                showInLegend: false,
-            },
-            // line: {
-                // cursor: 'ns-resize'
-            // }
+                showInLegend: false
+            }
         },
         credits: false,
         series: [
         userDataSeries,
         {
-            // Temporary data moving with mouse
-            data: [[0, 0]],
+            id: 'trace',
+            data: [[-7, 0], [-6, 0], [-5, 0]],  // invisible
+            enableMouseTracking: false,
             draggableX: true,
+            dragMaxX: 16,
+            dragMinX: 0,
             draggableY: true,
+            dragMaxY: 49.9,
+            dragMinY: -49.9,
             marker: {
                 symbol: 'circle',
             },
@@ -186,8 +204,11 @@ $(function () {
     
     var chart = $('#container').highcharts();
 
+    /* END OF HIGHCHARTS OPTIONS*/
 
-    // Buttons
+
+    /* BUTTONS */
+
     function resetData() {
         var series = chart.get('user-data');
         series.remove();

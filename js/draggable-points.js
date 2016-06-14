@@ -5,6 +5,7 @@
  * Version: 2.0.4 (2016-05-23)
  */
 
+
 /*global document, Highcharts */
 (function (factory) {
     if (typeof module === 'object' && module.exports) {
@@ -21,7 +22,7 @@
         pick = Highcharts.pick;
 
     /**
-     * Filter by dragMin and dragMax
+     * Filter by dragMin and dragMax (global function)
      */
     function filterRange(newY, series, XOrY) {
         var options = series.options,
