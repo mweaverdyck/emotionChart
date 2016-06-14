@@ -50,9 +50,9 @@ $(function () {
     }
 
 
-    /* HIGHCHARTS OPTIONS */
+    /* HIGHCHARTS SERIES */
 
-    userDataSeries = {
+    var userDataSeries = {
         id: 'user-data',
         // data: [[0, 0]],
         data: [0, 0, 0, 0, 0],
@@ -77,16 +77,34 @@ $(function () {
                 }
             }
         },
-        // events: {
-        //     mouseOver: function () {
-        //         console.log('over');
-        //     },
-        //     mouseOut: function () {
-        //         console.log('out');
-        //     }
-        // }
+        events: {
+            mouseOver: function () {
+                chart.mouseOverUserData = true;
+            },
+            mouseOut: function () {
+                chart.mouseOverUserData = false;
+            }
+        },
     };
 
+    var traceSeries = {
+        id: 'trace',
+        data: [[-7, 0], [-6, 0]],  // invisible
+        enableMouseTracking: false,
+        draggableX: true,
+        dragMaxX: 16,
+        dragMinX: -3.5,
+        draggableY: true,
+        dragMaxY: 49.9,
+        dragMinY: -49.9,
+        marker: {
+            symbol: 'circle',
+        },
+        color: 'rgba(124,181,236, 0.3)',
+    };
+
+
+    /* HIGHCHARTS OPTIONS */
 
     $('#container').highcharts({
         chart: {
@@ -129,8 +147,6 @@ $(function () {
             labels: {
                 formatter: function() { return num2time(this.value); },
             },
-            minPadding: 0.2,
-            maxPadding: 0.2,
             min: -3.5,
             max: 16,
             plotBands: [{
@@ -145,8 +161,6 @@ $(function () {
             },
             crosshair: true,
             gridLineWidth: 1,
-            minPadding: 0.2,
-            maxPadding: 0.2,
             min: -50,
             max: 50,
             plotLines: [{
@@ -173,36 +187,26 @@ $(function () {
         },
         credits: false,
         series: [
-        userDataSeries,
-        {
-            id: 'trace',
-            data: [[-7, 0], [-6, 0], [-5, 0]],  // invisible
-            enableMouseTracking: false,
-            draggableX: true,
-            dragMaxX: 16,
-            dragMinX: 0,
-            draggableY: true,
-            dragMaxY: 49.9,
-            dragMinY: -49.9,
-            marker: {
-                symbol: 'circle',
-            },
-            color: 'rgba(124,181,236, 0.3)'
-        }/*, {
-            data: [0, 0, 0, 0, 0, 0],
-            pointStart: -5,
-            marker: {
-                symbol: 'circle',
-            },
-            color: '#7CB5EC',
-            animation: {
-                duration: 2000
-            }
-        }*/]
+            userDataSeries,
+            // traceSeries,
+            /*, {
+                data: [0, 0, 0, 0, 0, 0],
+                pointStart: -5,
+                marker: {
+                    symbol: 'circle',
+                },
+                color: '#7CB5EC',
+                animation: {
+                    duration: 2000
+                }
+            }*/
+        ]
     });
 
     
     var chart = $('#container').highcharts();
+
+    // $('#container').mousemove(function(e) { console.log([e.clientX, e.clientY]); })
 
     /* END OF HIGHCHARTS OPTIONS*/
 
@@ -210,10 +214,11 @@ $(function () {
     /* BUTTONS */
 
     function resetData() {
-        var series = chart.get('user-data');
-        series.remove();
-        userDataSeries.data = [0, 0, 0, 0, 0];
+        chart.userSeries.setData([0, 0, 0, 0, 0]);
+        chart.get('user-data').remove();
         chart.addSeries(userDataSeries);
+
+        chart.userSeries = chart.get('user-data');
     }
 
 
@@ -225,8 +230,7 @@ $(function () {
         var series = chart.get('user-data'),
             data = [];
         for (var pt in series.data) {
-            // console.log([pt, num2time(series.data[pt].x), series.data[pt].x]);
-            data.push([num2time(series.data[pt].x), series.data[pt].x]);
+            data.push([num2time(series.data[pt].x), series.data[pt].y]);
         }
         console.log(EMOTIONS[index][0]);
         console.log(data);
