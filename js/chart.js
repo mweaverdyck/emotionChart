@@ -110,6 +110,8 @@ $(function () {
         chart: {
             type: 'line',
             animation: false,
+            marginTop: 70,
+            marginLeft: 70,
             events: {
                 click: function (e) {
                     // find the clicked values and the series
@@ -132,10 +134,12 @@ $(function () {
             }
         },
         title: {
-            text: EMOTIONS[index][0]
+            text: EMOTIONS[index][0],
+            // floating: true
         },
         subtitle: {
-            text: EMOTIONS[index][1]
+            text: EMOTIONS[index][1],
+            // floating: true
         },
         xAxis: {
             crosshair: true,
@@ -188,7 +192,7 @@ $(function () {
         credits: false,
         series: [
             userDataSeries,
-            // traceSeries,
+            traceSeries,
             /*, {
                 data: [0, 0, 0, 0, 0, 0],
                 pointStart: -5,
@@ -230,7 +234,8 @@ $(function () {
         var series = chart.get('user-data'),
             data = [];
         for (var pt in series.data) {
-            data.push([num2time(series.data[pt].x), series.data[pt].y]);
+            var x = series.data[pt].x;
+            data.push([num2time(x), x, series.data[pt].y]);
         }
         console.log(EMOTIONS[index][0]);
         console.log(data);

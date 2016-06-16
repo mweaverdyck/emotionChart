@@ -45,8 +45,8 @@
             // console.log([dragX, dragY]);
             // console.log([dragPoint.plotX, dragPoint.plotY]);
 
-            var newX = Math.round(traceSeries.xAxis.toValue(e.clientX, true)),
-                newY = Math.round(traceSeries.yAxis.toValue(e.clientY, true));
+            var newX = Math.round(traceSeries.xAxis.toValue((e.clientX-70), true)),  // matches marginLeft(70)
+                newY = traceSeries.yAxis.toValue((e.clientY-70), true);              // matches marginTop(70)
 
             chart.rightPoint = traceSeries.data.length > 2 ? traceSeries.data[2] : null;
 
@@ -76,7 +76,11 @@
 
                     neighbors = findNeighbors(evtArgs.x, userSeries);
                     // Left
-                    evtArgs.left.update({x: neighbors[0].x, y: neighbors[0].y}, false);
+                    if (neighbors[0]) {
+                        evtArgs.left.update({x: neighbors[0].x, y: neighbors[0].y}, false);
+                    } else {
+                        evtArgs.left.update({x: -99, y: 0}, false);
+                    }
                     // Right
                     if (neighbors[1]) {
                         if (evtArgs.right) {
