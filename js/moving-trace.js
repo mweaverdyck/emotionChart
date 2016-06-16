@@ -42,8 +42,8 @@
                 traceSeries = chart.traceSeries,
                 dragPoint = chart.dragPoint,
 
-                newX = Math.round(traceSeries.xAxis.toValue((e.clientX-70), true)),  // matches marginLeft(70)
-                newY = traceSeries.yAxis.toValue((e.clientY-70), true);              // matches marginTop(70)
+                newX = Math.round(traceSeries.xAxis.toValue((e.clientX-80), true)),  // matches marginLeft
+                newY = traceSeries.yAxis.toValue((e.clientY-90), true);              // matches marginTop
 
             chart.rightPoint = traceSeries.data.length > 2 ? traceSeries.data[2] : null;
 

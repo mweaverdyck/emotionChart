@@ -13,10 +13,14 @@ function shuffleArray(array) {
     return array;
 }
 
-function num2time(num) {
+function num2time(num, showZero) {
     // convert numbers to reasonable time
     if (num === 0) {
-        return 0;
+        if (showZero) {
+            return 0;
+        } else {
+            return '<p align="center" style="font-size:18px"><b>&#8679;</b><br/>START</p>';
+        }
     }
     if (num < 2) {
         return num + ' sec';
@@ -95,12 +99,12 @@ $(function () {
         dragMaxX: 16,
         dragMinX: -3.5,
         draggableY: true,
-        dragMaxY: 49.9,
-        dragMinY: -49.9,
+        dragMaxY: 79.9,
+        dragMinY: -19.9,
         marker: {
             symbol: 'circle',
         },
-        color: 'rgba(124,181,236, 0.3)',
+        color: 'rgba(124,181,236, 0.5)',
     };
 
 
@@ -110,8 +114,8 @@ $(function () {
         chart: {
             type: 'line',
             animation: false,
-            marginTop: 70,
-            marginLeft: 70,
+            marginTop: 90,   // Should match the Y value subtracted from trace
+            marginLeft: 80,  // Should match the X value subtracted from trace
             events: {
                 click: function (e) {
                     // find the clicked values and the series
@@ -134,50 +138,82 @@ $(function () {
             }
         },
         title: {
-            text: EMOTIONS[index][0]
+            text: EMOTIONS[index][0],
+            style: {
+                fontSize: '25px'
+            }
         },
         subtitle: {
             text: EMOTIONS[index][1]
         },
         xAxis: {
+            title: {
+                text: 'Time',
+                style: {
+                    color: '#384755',
+                    fontSize: '13px',
+                    fontWeight: 'bold'
+                }
+            },
             crosshair: true,
             gridLineWidth: 1,
-            title: {
-                text: 'Time'
-            },
+            gridLineColor: '#c6c6c6',
             tickInterval: 1,
             labels: {
-                formatter: function() { return num2time(this.value); },
+                formatter: function() { return num2time(this.value, false); },
+                useHTML: true,
+                style: {
+                    color: '#384755',
+                    fontSize: '13px'
+                }
             },
+            showLastLabel: true,
+            endOnTick: true,
             min: -3.5,
             max: 16,
             plotBands: [{
                 from: -5,
                 to: 0,
                 color: '#e6e6e6',
-            }]
+            }],
+            plotLines: [{
+                color: '#adadad',
+                width: 3,
+                value: 0
+            }],
         },
         yAxis: {
             title: {
-                text: 'Intensity'
+                text: 'Intensity',
+                style: {
+                    color: '#384755',
+                    fontSize: '13px',
+                    fontWeight: 'bold'
+                }
             },
-            crosshair: true,
             gridLineWidth: 1,
-            min: -50,
-            max: 50,
+            gridLineColor: '#c6c6c6',
+            labels: {
+                style: {
+                    color: '#384755',
+                    fontSize: '13px'
+                }
+            },
+            min: -20,
+            max: 80,
             plotLines: [{
-                color: '#d3d3d3',
+                color: '#adadad',
                 width: 3,
                 value: 0
             }],
         },
         tooltip: {
-            backgroundColor: 'rgba(255, 255, 255, 0.5)',
+            backgroundColor: 'rgba(255, 255, 255, 0.6)',
             borderWidth: 0,
             shadow: false,
             headerFormat: '',
             pointFormatter: function () {
-                return '<b>'+ num2time(this.x) + ': ' + Highcharts.numberFormat(this.y, 1) +'</b><br/>';
+                return '<b>'+ num2time(this.x, true) + ': ' + Highcharts.numberFormat(this.y, 1) +'</b><br/>';
             },
             hideDelay: 500
         },
