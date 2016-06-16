@@ -1,4 +1,4 @@
-index = 0;
+var index = 0;
 
 
 /* HELPER FUNCTIONS */
@@ -134,12 +134,10 @@ $(function () {
             }
         },
         title: {
-            text: EMOTIONS[index][0],
-            // floating: true
+            text: EMOTIONS[index][0]
         },
         subtitle: {
-            text: EMOTIONS[index][1],
-            // floating: true
+            text: EMOTIONS[index][1]
         },
         xAxis: {
             crosshair: true,
@@ -192,25 +190,13 @@ $(function () {
         credits: false,
         series: [
             userDataSeries,
-            traceSeries,
-            /*, {
-                data: [0, 0, 0, 0, 0, 0],
-                pointStart: -5,
-                marker: {
-                    symbol: 'circle',
-                },
-                color: '#7CB5EC',
-                animation: {
-                    duration: 2000
-                }
-            }*/
+            traceSeries
         ]
     });
 
     
     var chart = $('#container').highcharts();
 
-    // $('#container').mousemove(function(e) { console.log([e.clientX, e.clientY]); })
 
     /* END OF HIGHCHARTS OPTIONS*/
 

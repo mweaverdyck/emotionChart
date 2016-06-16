@@ -37,15 +37,12 @@
 
             var originalEvent = e.originalEvent || e,
                 dragX = originalEvent.changedTouches ? originalEvent.changedTouches[0].clientX : e.clientX,
-                dragY = originalEvent.changedTouches ? originalEvent.changedTouches[0].clientY : e.clientY;
+                dragY = originalEvent.changedTouches ? originalEvent.changedTouches[0].clientY : e.clientY,
                 userSeries = chart.userSeries,
                 traceSeries = chart.traceSeries,
-                dragPoint = chart.dragPoint;
+                dragPoint = chart.dragPoint,
 
-            // console.log([dragX, dragY]);
-            // console.log([dragPoint.plotX, dragPoint.plotY]);
-
-            var newX = Math.round(traceSeries.xAxis.toValue((e.clientX-70), true)),  // matches marginLeft(70)
+                newX = Math.round(traceSeries.xAxis.toValue((e.clientX-70), true)),  // matches marginLeft(70)
                 newY = traceSeries.yAxis.toValue((e.clientY-70), true);              // matches marginTop(70)
 
             chart.rightPoint = traceSeries.data.length > 2 ? traceSeries.data[2] : null;
@@ -60,14 +57,13 @@
                 right: chart.rightPoint
             };
 
-            // console.log(dragPoint);
             dragPoint.firePointEvent(
                 'drag',
                 evtArgs,
                 function () {
-                    if (evtArgs.invisible) {
+                    if (evtArgs.invisible && traceSeries.visible) {
                         traceSeries.hide();
-                    } else {
+                    } else if (!evtArgs.invisible && !traceSeries.visible) {
                         traceSeries.show();
                     }
                     var kdTree;
