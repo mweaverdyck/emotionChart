@@ -36,8 +36,8 @@
             e.preventDefault();
 
             var originalEvent = e.originalEvent || e,
-                dragX = originalEvent.changedTouches ? originalEvent.changedTouches[0].clientX : e.clientX,
-                dragY = originalEvent.changedTouches ? originalEvent.changedTouches[0].clientY : e.clientY,
+                dragX = originalEvent.changedTouches ? -98 : e.clientX,
+                dragY = originalEvent.changedTouches ? 0 : e.clientY,
                 userSeries = chart.userSeries,
                 traceSeries = chart.traceSeries,
                 dragPoint = chart.dragPoint,
