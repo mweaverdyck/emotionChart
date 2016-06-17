@@ -1,5 +1,11 @@
-var index = 0;
+/*
+ * Author: Meng Du
+ * Date: Jun 17, 2016
+ */
 
+var index = 0;  // index in EMOTIONS
+var startTime = Date.getTime();
+var history = [];
 
 /* HELPER FUNCTIONS */
 
@@ -298,7 +304,7 @@ $(function () {
 
             setTimeout(function () {
                 chart.xAxis[0].removePlotLine('warning-line');
-            }, 1000);
+            }, 1500);
             return;
         }
 
