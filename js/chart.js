@@ -22,7 +22,7 @@ function num2time(num, showZero) {
             return '';
         }
     }
-    if (num < 2) {
+    if (num <= 1) {
         return num + ' sec';
     }
     switch (num) {
@@ -41,7 +41,7 @@ function num2time(num, showZero) {
         case 14: return '1 week';
         case 15: return '1 month';
         case 16: return '2 month';
-        default: return num;
+        default: return '';
     }
 }
 
@@ -107,6 +107,36 @@ $(function () {
         color: 'rgba(124,181,236, 0.4)',
     };
 
+    /* X AXIS LINES */
+    var xAxisPlotLines = [
+        {
+            color: '#adadad',
+            width: 3,
+            value: 0,
+            label: {
+                useHTML: true,
+                text: '<span style="font-size:18px">START</span><span style="font-size:25px">&#8595;</span>',
+                verticalAlign: 'bottom',
+                textAlign: 'left',
+                rotation: -90,
+                y: -5
+            }
+        }
+    ];
+
+    var logTickPositions = [2.387, 2.613, 2.774, 2.898];
+    for (var i = 0; i < 15; ++i) {
+        for (var j = 0; j < 4; ++j) {
+            var newlogTick = {
+                color: '#e5e5e5',
+                width: 0.8
+            };
+            newlogTick.value = logTickPositions[j];
+            newlogTick.value += i;
+            xAxisPlotLines.push(newlogTick);
+        }
+    }
+    console.log(xAxisPlotLines);
 
     /* HIGHCHARTS OPTIONS */
 
@@ -165,31 +195,16 @@ $(function () {
                 style: {
                     color: '#384755',
                     fontSize: '13px'
-                },
-                // autoRotation: [0]
+                }
             },
-            showLastLabel: true,
-            endOnTick: true,
             min: -3.5,
-            max: 16,
+            max: 16.5,
             plotBands: [{
                 from: -5,
                 to: 0,
                 color: '#e6e6e6',
             }],
-            plotLines: [{
-                color: '#adadad',
-                width: 3,
-                value: 0,
-                label: {
-                    useHTML: true,
-                    text: '<span style="font-size:18px">START</span><span style="font-size:25px">&#8595;</span>',
-                    verticalAlign: 'bottom',
-                    textAlign: 'left',
-                    rotation: -90,
-                    y: -5
-                }
-            }],
+            plotLines: xAxisPlotLines
         },
         yAxis: {
             title: {
