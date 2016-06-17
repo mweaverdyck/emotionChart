@@ -125,7 +125,7 @@ $(function () {
     ];
 
     var logTickPositions = [2.387, 2.613, 2.774, 2.898];
-    for (var i = 0; i < 15; ++i) {
+    for (var i = 0; i < 14; ++i) {
         for (var j = 0; j < 4; ++j) {
             var newlogTick = {
                 color: '#e5e5e5',
@@ -186,7 +186,7 @@ $(function () {
             },
             crosshair: true,
             gridLineWidth: 1,
-            gridLineColor: '#c6c6c6',
+            gridLineColor: '#a0a0a0',
             tickInterval: 1,
             tickColor: '#adadad',
             labels: {
@@ -215,7 +215,7 @@ $(function () {
                 }
             },
             gridLineWidth: 1,
-            gridLineColor: '#c6c6c6',
+            gridLineColor: '#d3d3d3',
             tickColor: '#adadad',
             labels: {
                 style: {
