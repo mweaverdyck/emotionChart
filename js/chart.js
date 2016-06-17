@@ -136,7 +136,6 @@ $(function () {
             xAxisPlotLines.push(newlogTick);
         }
     }
-    console.log(xAxisPlotLines);
 
     /* HIGHCHARTS OPTIONS */
 
