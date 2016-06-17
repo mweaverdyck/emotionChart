@@ -104,6 +104,5 @@
         }
 
         Highcharts.addEvent(container, 'mousemove', mouseMove);
-        Highcharts.addEvent(container, 'touchmove', mouseMove);
     });
 }(Highcharts));
