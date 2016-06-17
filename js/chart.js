@@ -45,6 +45,17 @@ function num2time(num, showZero) {
     }
 }
 
+function findPointInSeries(x, series) {
+    // Given an X value, return the point if found or null if not
+    for (var pt in series.data) {
+        if (series.data[pt].x == x) {
+            unique = false;
+            return series.data[pt];
+        }
+    }
+    return null;
+}
+
 /* END OF HELPER FUNCTIONS */
 
 
@@ -152,15 +163,10 @@ $(function () {
                         y = e.yAxis[0].value,
                         series = $('#container').highcharts().get('user-data');
 
-                    var unique = true;
-                    for (var pt in series.data) {
-                        if (series.data[pt].x == x) {
-                            unique = false;
-                            series.data[pt].update(y);
-                            break;
-                        }
-                    }
-                    if (unique && x > 0) {
+                    var point = findPointInSeries(x, series);
+                    if (point) {
+                        point.update(y);
+                    } else if (x > 0) {
                         series.addPoint([x, y]);
                     }
                 }
@@ -186,7 +192,7 @@ $(function () {
             },
             crosshair: true,
             gridLineWidth: 1,
-            gridLineColor: '#a0a0a0',
+            gridLineColor: '#a8a8a8',
             tickInterval: 1,
             tickColor: '#adadad',
             labels: {
@@ -215,7 +221,7 @@ $(function () {
                 }
             },
             gridLineWidth: 1,
-            gridLineColor: '#d3d3d3',
+            gridLineColor: '#d8d8d8',
             tickColor: '#adadad',
             labels: {
                 style: {
@@ -276,9 +282,27 @@ $(function () {
 
 
     $('#nextBtn').click(function () {
-        // Save current data,
+        // Validate
         var series = chart.get('user-data'),
             data = [];
+        var lastPt = findPointInSeries(16, series);
+        if (!lastPt) {
+            chart.xAxis[0].addPlotLine({
+                id: 'warning-line',
+                value: 16,
+                color: 'red',
+                width: 1.5,
+            });
+
+            alert('Please rate the emotional intensity in the second month.');
+
+            setTimeout(function () {
+                chart.xAxis[0].removePlotLine('warning-line');
+            }, 1000);
+            return;
+        }
+
+        // save data
         for (var pt in series.data) {
             var x = series.data[pt].x;
             data.push([num2time(x), x, series.data[pt].y]);
