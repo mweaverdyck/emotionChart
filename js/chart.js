@@ -197,7 +197,7 @@ $(function () {
                 }
             },
             min: -3.5,
-            max: 16.5,
+            max: 16.3,
             plotBands: [{
                 from: -5,
                 to: 0,
