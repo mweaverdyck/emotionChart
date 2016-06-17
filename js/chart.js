@@ -19,7 +19,7 @@ function num2time(num, showZero) {
         if (showZero) {
             return 0;
         } else {
-            return '<p align="center" style="font-size:18px"><b>&#8679;</b><br/>START</p>';
+            return '';
         }
     }
     if (num < 2) {
@@ -104,7 +104,7 @@ $(function () {
         marker: {
             symbol: 'circle',
         },
-        color: 'rgba(124,181,236, 0.5)',
+        color: 'rgba(124,181,236, 0.4)',
     };
 
 
@@ -159,13 +159,14 @@ $(function () {
             gridLineWidth: 1,
             gridLineColor: '#c6c6c6',
             tickInterval: 1,
+            tickColor: '#adadad',
             labels: {
                 formatter: function() { return num2time(this.value, false); },
-                useHTML: true,
                 style: {
                     color: '#384755',
                     fontSize: '13px'
-                }
+                },
+                // autoRotation: [0]
             },
             showLastLabel: true,
             endOnTick: true,
@@ -179,7 +180,15 @@ $(function () {
             plotLines: [{
                 color: '#adadad',
                 width: 3,
-                value: 0
+                value: 0,
+                label: {
+                    useHTML: true,
+                    text: '<span style="font-size:18px">START</span><span style="font-size:25px">&#8595;</span>',
+                    verticalAlign: 'bottom',
+                    textAlign: 'left',
+                    rotation: -90,
+                    y: -5
+                }
             }],
         },
         yAxis: {
@@ -193,6 +202,7 @@ $(function () {
             },
             gridLineWidth: 1,
             gridLineColor: '#c6c6c6',
+            tickColor: '#adadad',
             labels: {
                 style: {
                     color: '#384755',
