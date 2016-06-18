@@ -1,6 +1,11 @@
+/*
+ * Author: Meng Du
+ * Date: Jun 17, 2016
+ */
+
 (function (Highcharts) {
 
-    function findNeighbors(x,userSeries) {
+    function findNeighbors(x, userSeries) {
         // Given an x value, return one or two neighbor points in user data
         var left = null,
             right = null;
@@ -32,7 +37,7 @@
         chart.mouseOverUserData = false;
 
 
-        function mouseMove(e) {
+        function mouse_move(e) {
             e.preventDefault();
 
             var originalEvent = e.originalEvent || e,
@@ -103,6 +108,6 @@
             );
         }
 
-        Highcharts.addEvent(container, 'mousemove', mouseMove);
+        Highcharts.addEvent(container, 'mousemove', mouse_move);
     });
 }(Highcharts));

@@ -4,12 +4,20 @@
  */
 
 var index = 0;  // index in EMOTIONS
-var startTime = Date.getTime();
-var history = [];
+
+/* Historical data is returned in this format
+    [{
+        time: <ms>,
+        event: <'new' | 'move' | 'delete' | 'reset' | 'next-invalid' | 'next'>,
+        point: <[x, y] | null>
+    }]
+ */
+var startTime = Date.now();
+var userHistory = [];
 
 /* HELPER FUNCTIONS */
 
-function shuffleArray(array) {
+function shuffle_array(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
         var temp = array[i];
@@ -51,7 +59,7 @@ function num2time(num, showZero) {
     }
 }
 
-function findPointInSeries(x, series) {
+function find_point_in_series(x, series) {
     // Given an X value, return the point if found or null if not
     for (var pt in series.data) {
         if (series.data[pt].x == x) {
@@ -67,7 +75,7 @@ function findPointInSeries(x, series) {
 
 $(function () {
     if (RANDOMIZE) {
-        shuffleArray(EMOTIONS);
+        shuffle_array(EMOTIONS);
     }
 
 
@@ -92,6 +100,12 @@ $(function () {
         point: {
             events: {
                 click: function () {
+                    userHistory.push({
+                        time: Date.now() - startTime,
+                        event: 'delete',
+                        point: [this.x, this.y]
+                    });
+
                     if (this.series.data.length > 1 && this.x > 0) {
                         this.remove();
                     }
@@ -169,12 +183,18 @@ $(function () {
                         y = e.yAxis[0].value,
                         series = $('#container').highcharts().get('user-data');
 
-                    var point = findPointInSeries(x, series);
+                    var point = find_point_in_series(x, series);
                     if (point) {
                         point.update(y);
                     } else if (x > 0) {
                         series.addPoint([x, y]);
                     }
+
+                    userHistory.push({
+                        time: Date.now() - startTime,
+                        event: point ? 'move' : 'new',
+                        point: [x, y]
+                    });
                 }
             }
         },
@@ -265,17 +285,15 @@ $(function () {
             traceSeries
         ]
     });
-
     
     var chart = $('#container').highcharts();
-
 
     /* END OF HIGHCHARTS OPTIONS*/
 
 
     /* BUTTONS */
 
-    function resetData() {
+    function reset_data() {
         chart.userSeries.setData([0, 0, 0, 0, 0]);
         chart.get('user-data').remove();
         chart.addSeries(userDataSeries);
@@ -284,14 +302,22 @@ $(function () {
     }
 
 
-    $('#resetBtn').click(resetData);
+    $('#resetBtn').click(function() {
+        reset_data();
+        userHistory.push({
+            time: Date.now() - startTime,
+            event: 'reset',
+            point: null
+        });
+    });
 
 
     $('#nextBtn').click(function () {
+
         // Validate
         var series = chart.get('user-data'),
             data = [];
-        var lastPt = findPointInSeries(16, series);
+        var lastPt = find_point_in_series(16, series);
         if (!lastPt) {
             chart.xAxis[0].addPlotLine({
                 id: 'warning-line',
@@ -305,23 +331,45 @@ $(function () {
             setTimeout(function () {
                 chart.xAxis[0].removePlotLine('warning-line');
             }, 1500);
+
+            userHistory.push({
+                time: Date.now() - startTime,
+                event: 'next-invalid',
+                point: null
+            });
             return;
         }
 
         // save data
         for (var pt in series.data) {
             var x = series.data[pt].x;
-            data.push([num2time(x), x, series.data[pt].y]);
+            data.push([x, series.data[pt].y, num2time(x)]);
         }
         console.log(EMOTIONS[index][0]);
         console.log(data);
+
+        // Add points
+        // var pts = get_all_points(data);
+        // for (var i in pts) {
+        //     if (!find_point_in_series(pts[i][0], series)) {
+        //         series.addPoint([pts[i][0], pts[i][1]]);
+        //     }
+        // }
+        // return;
+
+        userHistory.push({
+            time: Date.now() - startTime,
+            event: 'next',
+            point: null
+        });
 
         // Go to next or finish
         index += 1;
         if (index < EMOTIONS.length) {
             chart.setTitle({ text: EMOTIONS[index][0] }, { text: EMOTIONS[index][1] });
-            resetData();
+            reset_data();
         } else {
+            console.log(userHistory);
             alert('Finished!');
         }
     });
