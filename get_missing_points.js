@@ -1,5 +1,5 @@
 function get_missing_points(x1, y1, y2, num) {
-    // Given y1, y2 (assuming x1 < x2) and number of missing points,
+    // Given x1, y1, y2 (assuming x1 < x2) and number of missing points,
     // return an array of the missing points
     var missingPts = [];
     for (var i = 1; i <= num; ++i) {
