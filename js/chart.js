@@ -283,7 +283,7 @@ $(function () {
         ]
     });
 
-    var chart = $('#container').highcharts();
+    var userChart = $('#container').highcharts();
 
     /* CHART OF TRACE */
     $('#trace-container').highcharts({
@@ -352,11 +352,11 @@ $(function () {
     /* BUTTONS */
 
     function reset_data() {
-        chart.userSeries.setData([0, 0, 0, 0, 0]);
-        chart.get('user-data').remove();
-        chart.addSeries(userDataSeries);
+        container.userSeries.setData([0, 0, 0, 0, 0]);
+        userChart.get('user-data').remove();
+        userChart.addSeries(userDataSeries);
 
-        chart.userSeries = chart.get('user-data');
+        container.userSeries = userChart.get('user-data');
     }
 
 
@@ -373,11 +373,11 @@ $(function () {
     $('#nextBtn').click(function () {
 
         // Validate
-        var series = chart.get('user-data'),
+        var series = userChart.get('user-data'),
             data = [];
         var lastPt = find_point_in_series(16, series);
         if (!lastPt) {
-            chart.xAxis[0].addPlotLine({
+            userChart.xAxis[0].addPlotLine({
                 id: 'warning-line',
                 value: 16,
                 color: 'red',
@@ -387,7 +387,7 @@ $(function () {
             alert('Please rate the emotional intensity in the second month.');
 
             setTimeout(function () {
-                chart.xAxis[0].removePlotLine('warning-line');
+                userChart.xAxis[0].removePlotLine('warning-line');
             }, 1500);
 
             userHistory.push({
@@ -424,7 +424,7 @@ $(function () {
         // Go to next or finish
         index += 1;
         if (index < EMOTIONS.length) {
-            chart.setTitle({ text: EMOTIONS[index][0] }, { text: EMOTIONS[index][1] });
+            userChart.setTitle({ text: EMOTIONS[index][0] }, { text: EMOTIONS[index][1] });
             reset_data();
         } else {
             console.log(userHistory);

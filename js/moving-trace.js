@@ -28,8 +28,8 @@
         }
 
         // Get points and boundaries
-        var userSeries = $('#container').highcharts().get('user-data'),
-            traceSeries = $('#trace-container').highcharts().get('trace'),
+        container.userSeries = $('#container').highcharts().get('user-data');
+        var traceSeries = $('#trace-container').highcharts().get('trace'),
             dragPoint = traceSeries.data[1],
             leftPoint = traceSeries.data[0],
             rightPoint = traceSeries.data.length > 2 ? traceSeries.data[2] : null,
@@ -75,7 +75,7 @@
 
                     dragPoint.update(evtArgs, false);
 
-                    neighbors = findNeighbors(evtArgs.x, userSeries);
+                    neighbors = findNeighbors(evtArgs.x, container.userSeries);
                     // Left
                     if (neighbors[0]) {
                         evtArgs.left.update({x: neighbors[0].x, y: neighbors[0].y}, false);
