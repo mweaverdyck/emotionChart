@@ -21,21 +21,23 @@
         }
         return [left, right];
     }
-
-    console.log('??');
     
     Highcharts.Chart.prototype.callbacks.push(function (chart) {
-        console.log('?');
+        if (Highcharts.charts.length < 2) {
+            // skip it unless both charts are ready
+            return;
+        }
+
         // Get points and boundaries
         chart.userSeries = $('#container').highcharts().get('user-data'),
-        traceChart.traceSeries = $('#trace-container').highcharts().get('trace'),
-        chart.dragPoint = chart.traceSeries.data[1],
-        chart.leftPoint = chart.traceSeries.data[0],
-        chart.rightPoint = chart.traceSeries.data.length > 2 ? traceSeries.data[2] : null;
-        chart.minX = Highcharts.pick(chart.traceSeries.options['dragMinX'], undefined),
-        chart.maxX = Highcharts.pick(chart.traceSeries.options['dragMaxX'], undefined),
-        chart.minY = Highcharts.pick(chart.traceSeries.options['dragMinY'], undefined),
-        chart.maxY = Highcharts.pick(chart.traceSeries.options['dragMaxY'], undefined),
+        traceSeries = $('#trace-container').highcharts().get('trace'),
+        chart.dragPoint = traceSeries.data[1],
+        chart.leftPoint = traceSeries.data[0],
+        chart.rightPoint = traceSeries.data.length > 2 ? traceSeries.data[2] : null;
+        chart.minX = Highcharts.pick(traceSeries.options['dragMinX'], undefined),
+        chart.maxX = Highcharts.pick(traceSeries.options['dragMaxX'], undefined),
+        chart.minY = Highcharts.pick(traceSeries.options['dragMinY'], undefined),
+        chart.maxY = Highcharts.pick(traceSeries.options['dragMaxY'], undefined),
         chart.mouseOverUserData = false;
 
 
@@ -46,7 +48,6 @@
                 dragX = originalEvent.changedTouches ? -98 : e.clientX,
                 dragY = originalEvent.changedTouches ? 0 : e.clientY,
                 userSeries = chart.userSeries,
-                traceSeries = chart.traceSeries,
                 dragPoint = chart.dragPoint,
 
                 newX = Math.round(traceSeries.xAxis.toValue((e.clientX-80), true)),  // matches marginLeft
@@ -65,7 +66,7 @@
             };
 
             dragPoint.firePointEvent(
-                'trace-drag',
+                'drag',
                 evtArgs,
                 function () {
                     if (evtArgs.invisible && traceSeries.visible) {
@@ -102,7 +103,7 @@
                     if (traceSeries.stackKey) {
                         chart.redraw();
                     } else {
-                        kdTree = chart.traceSeries.kdTree;
+                        kdTree = traceSeries.kdTree;
                         traceSeries.redraw();
                         traceSeries.kdTree = kdTree;
                     }
@@ -110,6 +111,6 @@
             );
         }
 
-        Highcharts.addEvent(chart.container, 'mousemove', mouse_move);
+        Highcharts.addEvent(container, 'mousemove', mouse_move);
     });
 }(Highcharts));

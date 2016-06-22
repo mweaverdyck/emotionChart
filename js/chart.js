@@ -124,7 +124,7 @@ $(function () {
 
     var traceSeries = {
         id: 'trace',
-        data: [[-7, 0], [-6, 0]],  // invisible
+        data: [[-7, 0], [-6, 0], [5, 5]],  // invisible
         enableMouseTracking: false,
         draggableX: true,
         dragMaxX: 16,
@@ -187,6 +187,7 @@ $(function () {
             animation: false,
             marginTop: 90,   // Should match the Y value subtracted from trace
             marginLeft: 80,  // Should match the X value subtracted from trace
+            backgroundColor:'rgba(255, 255, 255, 0.002)',
             events: {
                 click: function (e) {
                     // find the clicked values and the series
@@ -241,11 +242,6 @@ $(function () {
             },
             min: -3.5,
             max: 16.3,
-            plotBands: [{
-                from: -5,
-                to: 0,
-                color: '#e6e6e6',
-            }],
             plotLines: xAxisPlotLines
         },
         yAxis: {
@@ -286,7 +282,7 @@ $(function () {
             userDataSeries
         ]
     });
-    
+
     var chart = $('#container').highcharts();
 
     /* CHART OF TRACE */
@@ -298,18 +294,33 @@ $(function () {
             marginLeft: 80   // Should match the X value subtracted from trace
         },
         title: {
-            text: ''
+            text: 'TEST'
         },
-        xAxis: {
+        xAxis: {    // matches the margin of the other chart
             title: {
-                text: ''
+                text: 'Time',
+                style: {
+                    color: 'rgba(255, 255, 255, 0.002)',
+                    fontSize: '13px',
+                    fontWeight: 'bold'
+                }
             },
             labels: {
-                enabled: false
+                formatter: function() { return num2time(this.value, false); },
+                style: {
+                    color: 'rgba(255, 255, 255, 0.002)',
+                    fontSize: '13px'
+                }
             },
             gridLineWidth: 0,
+            tickInterval: 1,
             min: -3.5,
             max: 16.3,
+            plotBands: [{
+                from: -5,
+                to: 0,
+                color: '#e6e6e6',
+            }]
         },
         yAxis: {
             title: {
@@ -334,8 +345,6 @@ $(function () {
         tooltip: tooltipSettings,
         credits: false,
     });
-
-    var traceChart = $('#trace-container').highcharts();
 
     /* END OF HIGHCHARTS OPTIONS*/
 
