@@ -138,9 +138,9 @@ $(function () {
         color: 'rgba(124,181,236, 0.4)',
     };
 
-    /* X AXIS LINES */
+    /* X AXIS PLOT LINES */
     var xAxisPlotLines = [
-        {
+        {  // line at 0
             color: '#adadad',
             width: 3,
             value: 0,
@@ -168,8 +168,19 @@ $(function () {
         }
     }
 
-    /* HIGHCHARTS OPTIONS */
+    /* TOOLTIP */
+    tooltipSettings = {
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
+        borderWidth: 0,
+        shadow: false,
+        headerFormat: '',
+        pointFormatter: function () {
+            return '<b>'+ num2time(this.x, true) + ': ' + Highcharts.numberFormat(this.y, 1) +'</b><br/>';
+        },
+        hideDelay: 500
+    }
 
+    /* HIGHCHARTS OPTIONS */
     $('#container').highcharts({
         chart: {
             type: 'line',
@@ -263,16 +274,7 @@ $(function () {
                 value: 0
             }],
         },
-        tooltip: {
-            backgroundColor: 'rgba(255, 255, 255, 0.6)',
-            borderWidth: 0,
-            shadow: false,
-            headerFormat: '',
-            pointFormatter: function () {
-                return '<b>'+ num2time(this.x, true) + ': ' + Highcharts.numberFormat(this.y, 1) +'</b><br/>';
-            },
-            hideDelay: 500
-        },
+        tooltip: tooltipSettings,
         plotOptions: {
             series: {
                 stickyTracking: false,
@@ -281,12 +283,59 @@ $(function () {
         },
         credits: false,
         series: [
-            userDataSeries,
-            traceSeries
+            userDataSeries
         ]
     });
     
     var chart = $('#container').highcharts();
+
+    /* CHART OF TRACE */
+    $('#trace-container').highcharts({
+        chart: {
+            type: 'line',
+            animation: false,
+            marginTop: 90,   // Should match the Y value subtracted from trace
+            marginLeft: 80   // Should match the X value subtracted from trace
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            title: {
+                text: ''
+            },
+            labels: {
+                enabled: false
+            },
+            gridLineWidth: 0,
+            min: -3.5,
+            max: 16.3,
+        },
+        yAxis: {
+            title: {
+                text: ''
+            },
+            labels: {
+                enabled: false
+            },
+            gridLineWidth: 0,
+            min: -20,
+            max: 80,
+        },
+        series: [
+            traceSeries
+        ],
+        plotOptions: {
+            series: {
+                stickyTracking: false,
+                showInLegend: false
+            }
+        },
+        tooltip: tooltipSettings,
+        credits: false,
+    });
+
+    var traceChart = $('#trace-container').highcharts();
 
     /* END OF HIGHCHARTS OPTIONS*/
 

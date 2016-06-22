@@ -22,11 +22,13 @@
         return [left, right];
     }
 
+    console.log('??');
+    
     Highcharts.Chart.prototype.callbacks.push(function (chart) {
-
+        console.log('?');
         // Get points and boundaries
         chart.userSeries = $('#container').highcharts().get('user-data'),
-        chart.traceSeries = $('#container').highcharts().get('trace'),
+        traceChart.traceSeries = $('#trace-container').highcharts().get('trace'),
         chart.dragPoint = chart.traceSeries.data[1],
         chart.leftPoint = chart.traceSeries.data[0],
         chart.rightPoint = chart.traceSeries.data.length > 2 ? traceSeries.data[2] : null;
@@ -63,7 +65,7 @@
             };
 
             dragPoint.firePointEvent(
-                'drag',
+                'trace-drag',
                 evtArgs,
                 function () {
                     if (evtArgs.invisible && traceSeries.visible) {
@@ -108,6 +110,6 @@
             );
         }
 
-        Highcharts.addEvent(container, 'mousemove', mouse_move);
+        Highcharts.addEvent(chart.container, 'mousemove', mouse_move);
     });
 }(Highcharts));
