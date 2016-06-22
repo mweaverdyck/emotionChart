@@ -87,8 +87,8 @@ $(function () {
         data: [0, 0, 0, 0, 0],
         pointStart: -4,
         draggableY: true,
-        dragMaxY: 50,
-        dragMinY: -50,
+        dragMaxY: 80,
+        dragMinY: -20,
         dragSensitivity: 1,
         marker: {
             symbol: 'circle',
@@ -114,17 +114,17 @@ $(function () {
         },
         events: {
             mouseOver: function () {
-                chart.mouseOverUserData = true;
+                container.mouseOverUserData = true;
             },
             mouseOut: function () {
-                chart.mouseOverUserData = false;
+                container.mouseOverUserData = false;
             }
         },
     };
 
     var traceSeries = {
         id: 'trace',
-        data: [[-7, 0], [-6, 0], [5, 5]],  // invisible
+        data: [[-7, 0], [-6, 0]],  // invisible
         enableMouseTracking: false,
         draggableX: true,
         dragMaxX: 16,
@@ -177,7 +177,7 @@ $(function () {
         pointFormatter: function () {
             return '<b>'+ num2time(this.x, true) + ': ' + Highcharts.numberFormat(this.y, 1) +'</b><br/>';
         },
-        hideDelay: 500
+        hideDelay: 0
     }
 
     /* HIGHCHARTS OPTIONS */
@@ -294,7 +294,7 @@ $(function () {
             marginLeft: 80   // Should match the X value subtracted from trace
         },
         title: {
-            text: 'TEST'
+            text: ''
         },
         xAxis: {    // matches the margin of the other chart
             title: {
