@@ -1,6 +1,8 @@
+
 #all-charts {
 	min-width: 540px;
-	height: 80%;
+	height: 600px;
+	height: 85vh;
 	position: relative;
 }
 
