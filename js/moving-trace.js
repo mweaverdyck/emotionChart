@@ -23,7 +23,7 @@
     }
     
     Highcharts.Chart.prototype.callbacks.push(function (chart) {
-        if (Highcharts.charts.length < 2) {
+        if (Highcharts.charts.length < 2 || typeof container == 'undefined') {
             return;  // skip it unless both charts are ready
         }
 

@@ -73,13 +73,50 @@ function find_point_in_series(x, series) {
 /* END OF HELPER FUNCTIONS */
 
 
+var xAxisSettings, yAxisSettings, tooltipSettings, plotSeriesSettings, plotBand;
+
 $(function () {
     if (RANDOMIZE) {
         shuffle_array(EMOTIONS);
     }
 
+    var chartClickFunc = function (e) {
+        // find the clicked values and the series
+        var x = Math.round(e.xAxis[0].value),
+            y = e.yAxis[0].value;
+        var series;
+        if ($('#container').highcharts()) {
+            series = $('#container').highcharts().get('user-data');
+        } else {
+            series = $('#practice').highcharts().get('user-data');
+        }
 
-    /* HIGHCHARTS SERIES */
+        var point = find_point_in_series(x, series);
+        if (point) {
+            point.update(y);
+        } else if (x > 0) {
+            series.addPoint([x, y]);
+        }
+
+        userHistory.push({
+            time: Date.now() - startTime,
+            event: point ? 'move' : 'new',
+            point: [x, y]
+        });
+    }
+
+
+    /* HIGHCHARTS SERIES AND SETTINGS*/
+    var chartSettings = {
+        type: 'line',
+        animation: false,
+        marginTop: 90,   // Should match the Y value subtracted from trace
+        marginLeft: 80,  // Should match the X value subtracted from trace
+        backgroundColor:'rgba(255, 255, 255, 0.002)',
+        events: {
+            click: chartClickFunc
+        }
+    };
 
     var userDataSeries = {
         id: 'user-data',
@@ -114,10 +151,12 @@ $(function () {
         },
         events: {
             mouseOver: function () {
-                container.mouseOverUserData = true;
+                if (typeof container != 'undefined')
+                    container.mouseOverUserData = true;
             },
             mouseOut: function () {
-                container.mouseOverUserData = false;
+                if (typeof container != 'undefined')
+                    container.mouseOverUserData = false;
             }
         },
     };
@@ -155,6 +194,13 @@ $(function () {
         }
     ];
 
+    plotSeriesSettings = {
+        series: {
+            stickyTracking: false,
+            showInLegend: false
+        }
+    };
+
     var logTickPositions = [2.387, 2.613, 2.774, 2.898];
     for (var i = 0; i < 14; ++i) {
         for (var j = 0; j < 4; ++j) {
@@ -166,7 +212,66 @@ $(function () {
             newlogTick.value += i;
             xAxisPlotLines.push(newlogTick);
         }
-    }
+    };
+
+    xAxisSettings = {
+        title: {
+            text: 'Time',
+            style: {
+                color: '#384755',
+                fontSize: '13px',
+                fontWeight: 'bold'
+            }
+        },
+        crosshair: true,
+        gridLineWidth: 1,
+        gridLineColor: '#a8a8a8',
+        tickInterval: 1,
+        tickColor: '#adadad',
+        labels: {
+            formatter: function() { return num2time(this.value, false); },
+            style: {
+                color: '#384755',
+                fontSize: '13px'
+            }
+        },
+        min: -3.5,
+        max: 16.3,
+        plotLines: xAxisPlotLines
+    };
+
+    plotBand = {
+        from: -5,
+        to: 0,
+        color: '#e6e6e6',
+    };
+
+    yAxisSettings = {
+        title: {
+            text: 'Intensity',
+            style: {
+                color: '#384755',
+                fontSize: '13px',
+                fontWeight: 'bold'
+            }
+        },
+        gridLineWidth: 1,
+        gridLineColor: '#d8d8d8',
+        tickColor: '#adadad',
+        labels: {
+            style: {
+                color: '#384755',
+                fontSize: '13px'
+            }
+        },
+        min: -20,
+        max: 80,
+        plotLines: [{
+            color: '#adadad',
+            width: 3,
+            value: 0
+        }],
+    };
 
     /* TOOLTIP */
     tooltipSettings = {
@@ -178,38 +283,11 @@ $(function () {
             return '<b>'+ num2time(this.x, true) + ': ' + Highcharts.numberFormat(this.y, 1) +'</b><br/>';
         },
         hideDelay: 0
-    }
+    };
 
     /* HIGHCHARTS OPTIONS */
     $('#container').highcharts({
-        chart: {
-            type: 'line',
-            animation: false,
-            marginTop: 90,   // Should match the Y value subtracted from trace
-            marginLeft: 80,  // Should match the X value subtracted from trace
-            backgroundColor:'rgba(255, 255, 255, 0.002)',
-            events: {
-                click: function (e) {
-                    // find the clicked values and the series
-                    var x = Math.round(e.xAxis[0].value),
-                        y = e.yAxis[0].value,
-                        series = $('#container').highcharts().get('user-data');
-
-                    var point = find_point_in_series(x, series);
-                    if (point) {
-                        point.update(y);
-                    } else if (x > 0) {
-                        series.addPoint([x, y]);
-                    }
-
-                    userHistory.push({
-                        time: Date.now() - startTime,
-                        event: point ? 'move' : 'new',
-                        point: [x, y]
-                    });
-                }
-            }
-        },
+        chart: chartSettings,
         title: {
             text: EMOTIONS[index][0],
             style: {
@@ -219,64 +297,10 @@ $(function () {
         subtitle: {
             text: EMOTIONS[index][1]
         },
-        xAxis: {
-            title: {
-                text: 'Time',
-                style: {
-                    color: '#384755',
-                    fontSize: '13px',
-                    fontWeight: 'bold'
-                }
-            },
-            crosshair: true,
-            gridLineWidth: 1,
-            gridLineColor: '#a8a8a8',
-            tickInterval: 1,
-            tickColor: '#adadad',
-            labels: {
-                formatter: function() { return num2time(this.value, false); },
-                style: {
-                    color: '#384755',
-                    fontSize: '13px'
-                }
-            },
-            min: -3.5,
-            max: 16.3,
-            plotLines: xAxisPlotLines
-        },
-        yAxis: {
-            title: {
-                text: 'Intensity',
-                style: {
-                    color: '#384755',
-                    fontSize: '13px',
-                    fontWeight: 'bold'
-                }
-            },
-            gridLineWidth: 1,
-            gridLineColor: '#d8d8d8',
-            tickColor: '#adadad',
-            labels: {
-                style: {
-                    color: '#384755',
-                    fontSize: '13px'
-                }
-            },
-            min: -20,
-            max: 80,
-            plotLines: [{
-                color: '#adadad',
-                width: 3,
-                value: 0
-            }],
-        },
+        xAxis: xAxisSettings,
+        yAxis: yAxisSettings,
         tooltip: tooltipSettings,
-        plotOptions: {
-            series: {
-                stickyTracking: false,
-                showInLegend: false
-            }
-        },
+        plotOptions: plotSeriesSettings,
         credits: false,
         series: [
             userDataSeries
@@ -286,12 +310,13 @@ $(function () {
     var userChart = $('#container').highcharts();
 
     /* CHART OF TRACE */
-    $('#trace-container').highcharts({
+    var traceChartSettings = {
         chart: {
             type: 'line',
             animation: false,
             marginTop: 90,   // Should match the Y value subtracted from trace
-            marginLeft: 80   // Should match the X value subtracted from trace
+            marginLeft: 80,  // Should match the X value subtracted from trace
+            backgroundColor:'rgba(255, 255, 255, 0.002)'
         },
         title: {
             text: ''
@@ -316,11 +341,7 @@ $(function () {
             tickInterval: 1,
             min: -3.5,
             max: 16.3,
-            plotBands: [{
-                from: -5,
-                to: 0,
-                color: '#e6e6e6',
-            }]
+            plotBands: [plotBand]
         },
         yAxis: {
             title: {
@@ -344,7 +365,9 @@ $(function () {
         },
         tooltip: tooltipSettings,
         credits: false,
-    });
+    };
+
+    $('#trace-container').highcharts(traceChartSettings);
 
     /* END OF HIGHCHARTS OPTIONS*/
 
@@ -352,6 +375,9 @@ $(function () {
     /* BUTTONS */
 
     function reset_data() {
+        if (typeof container == 'undefined') {
+            container = $();
+        }
         container.userSeries.setData([0, 0, 0, 0, 0]);
         userChart.get('user-data').remove();
         userChart.addSeries(userDataSeries);
@@ -384,7 +410,7 @@ $(function () {
                 width: 1.5,
             });
 
-            alert('Please rate the emotional intensity in the second month.');
+            alert(INCOMPLETE_ALERT);
 
             setTimeout(function () {
                 userChart.xAxis[0].removePlotLine('warning-line');
@@ -428,7 +454,7 @@ $(function () {
             reset_data();
         } else {
             console.log(userHistory);
-            alert('Finished!');
+            alert(FINISH_ALERT);
         }
     });
 });
