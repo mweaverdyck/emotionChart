@@ -94,7 +94,7 @@ $(function () {
         var point = find_point_in_series(x, series);
         if (point) {
             point.update(y);
-        } else if (x > 0) {
+        } else if (x > 0 && y <= MAX_Y && y >= MIN_Y) {
             series.addPoint([x, y]);
         }
 
@@ -124,8 +124,8 @@ $(function () {
         data: [0, 0, 0, 0, 0],
         pointStart: -4,
         draggableY: true,
-        dragMaxY: 80,
-        dragMinY: -20,
+        dragMaxY: MAX_Y,
+        dragMinY: MIN_Y,
         dragSensitivity: 1,
         marker: {
             symbol: 'circle',
@@ -169,8 +169,8 @@ $(function () {
         dragMaxX: 16,
         dragMinX: -3.5,
         draggableY: true,
-        dragMaxY: 79.9,
-        dragMinY: -19.9,
+        dragMaxY: MAX_Y,
+        dragMinY: MIN_Y,
         marker: {
             symbol: 'circle',
         },
@@ -259,13 +259,17 @@ $(function () {
         gridLineColor: '#d8d8d8',
         tickColor: '#adadad',
         labels: {
+            formatter: function() {
+                return (this.value >= 0) ? this.value + '%' : '';
+            },
             style: {
                 color: '#384755',
                 fontSize: '13px'
             }
         },
-        min: -20,
-        max: 80,
+        min: MIN_Y,
+        max: MAX_Y,
+        tickInterval: 10,
         plotLines: [{
             color: '#adadad',
             width: 3,
@@ -280,7 +284,7 @@ $(function () {
         shadow: false,
         headerFormat: '',
         pointFormatter: function () {
-            return '<b>'+ num2time(this.x, true) + ': ' + Highcharts.numberFormat(this.y, 1) +'</b><br/>';
+            return '<b>'+ num2time(this.x, true) + ': ' + Highcharts.numberFormat(this.y, 1) +'%</b><br/>';
         },
         hideDelay: 0
     };
@@ -351,8 +355,9 @@ $(function () {
                 enabled: false
             },
             gridLineWidth: 0,
-            min: -20,
-            max: 80,
+            min: MIN_Y,
+            max: MAX_Y,
+            tickInterval: 10
         },
         series: [
             traceSeries
@@ -453,8 +458,12 @@ $(function () {
             userChart.setTitle({ text: EMOTIONS[index][0] }, { text: EMOTIONS[index][1] });
             reset_data();
         } else {
+            // Save data
             console.log(userHistory);
-            alert(FINISH_ALERT);
+
+            // Show the final page
+            $('#experiment-page').addClass("hidden");
+            $('#finish-page').removeClass("hidden");
         }
     });
 });

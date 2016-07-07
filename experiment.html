@@ -16,15 +16,21 @@
     </style>
 
     <body>
-        <div id="all-charts">
-            <div id="container"></div>
-            <div id="trace-container"></div>
-            <div id="drag"></div>
-            <div id="drop"></div>
+        <div id="experiment-page">
+            <div id="all-charts">
+                <div id="container"></div>
+                <div id="trace-container"></div>
+                <div id="drag"></div>
+                <div id="drop"></div>
+            </div>
+            <div id="buttons" align="center">
+                <button id="resetBtn" class="autocompare btn btn-default">Reset</button>
+                <button id="nextBtn" class="autocompare btn btn-primary">Next</button>
+            </div>
         </div>
-        <div id="buttons" align="center">
-            <button id="resetBtn" class="autocompare btn btn-default">Reset</button>
-            <button id="nextBtn" class="autocompare btn btn-primary">Next</button>
+
+        <div id="finish-page" class="hidden">
+            <p class="center">Thank you for participating!</p>
         </div>
 
         <script src="js/constants.js"></script>

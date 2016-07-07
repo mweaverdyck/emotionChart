@@ -14,10 +14,10 @@ $(function () {
         credits: false,
         series: [
             {
-                data: [0, 0, 0, 0, 0, 80, 45, 20, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                data: [0, 0, 0, 0, 0, 95, 50, 20, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 pointStart: -4,
                 animation: {
-                    duration: 4000
+                    duration: 5000
                 },
             }
         ]

@@ -1,9 +1,9 @@
 // A list of emotions and their instructions
-EMOTIONS = [
-	['Affection', ''],
+var EMOTIONS = [
+	['Affection', ''],	// ['Title', 'Subtitle']
 	['Disgust', ''],
-	// ['Intrigue', ''],
-	// ['Relaxation', ''],
+	['Intrigue', ''],
+	['Relaxation', ''],
 	// ['Agitation', ''],
 	// ['Distrust', ''],
 	// ['Judgment', ''],
@@ -62,7 +62,10 @@ EMOTIONS = [
 	// ['Worry', '']
 ];
 
-RANDOMIZE = true;
+var RANDOMIZE = true;
 
-INCOMPLETE_ALERT = 'Please rate the emotional intensity in the second month.';
-FINISH_ALERT = 'Thank you for participating!';
+var INCOMPLETE_ALERT = 'Please rate the emotional intensity in the second month.';
+
+// Y axis range
+var MAX_Y = 100;
+var MIN_Y = -10;
