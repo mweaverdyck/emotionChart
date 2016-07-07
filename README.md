@@ -10,7 +10,7 @@ How to make changes
 - `.html` files consists of a bunch of tags, one nested in another.
 - Each tag has an opening part (e.g. `<body>`, `<div>`, `<p>`) and a closing part (`</body>`, `</div>`, `</p>`).
 - Classes are styles such as fonts, sizes and positions, and they are defined in `.css` files. They can be applied to tags like this: `<div class="some-class">...</div>`, or this: `<p class="one-class another-class">...</p>`
-- Tags may also have other attributes, such as `id="xxx"` (a name to identify that tag in JavaScript), `align="center"`, etc.
+- Tags may also have other attributes, such as `id="xxx"` (a name to identify that tag in CSS/JavaScript), `align="center"`, etc.
 - `<br/>` is a line break
 
 #### Changing instructions
@@ -28,7 +28,7 @@ In folder `css`:
   - `px`: pixels
   - `vh` or `vw`: means viewport height or viewport width. `1vh` means 1% of the viewport height. So this is proportional to the browser size (as oppose to `px`, which doesn't change according to browser size).
     - These are handy but might not be supported by some old browsers, therefore I also put a `px` value before using `vh` or `vw`, so that in case they are not recognized, it will fall back to the `px` value
-  - percentage: means the percentage of its parent element. e.g. `<div id="parent">  <div id="child">stuff</div>  </div>` if parent width is 100px and child width is 50%, the child width would be 50px.
+  - percentage: means the percentage of its parent element. e.g. `<div id="parent">  <div id="child">stuff</div>  </div>` if parent width is 100px and child width is 50%, the child would be 50px wide.
 
 In folder `js`:
 - **`constants.js`** contains:
