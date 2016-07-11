@@ -19,8 +19,10 @@ Instructions at the beginning are in `index.html`. The first `div` inside `body`
 Instructions at the end are in `experiment.html` -> `body` -> `div id="finish-page"`.
 
 #### Changing other variables
-In folder `css`:
+##### In folder `css`:
+
 `chart.css` defines the styles, mostly positions and sizes, of the html elements in `experiment.html` (stuff below the comment "Experiment Pages") and `index.html` (stuff below the comment "Instruction Page").
+
 ###### CSS Tips
 - A css item contains: a name + a `{` + a bunch of styles + a `}`
 - The name could be either an html element _id_ or a _class name_. Those ids start with a `#`, and those class names start with a `.`
@@ -30,7 +32,7 @@ In folder `css`:
     - These are handy but might not be supported by some old browsers, therefore I also put a `px` value before using `vh` or `vw`, so that in case they are not recognized, it will fall back to the `px` value
   - percentage: means the percentage of its parent element. e.g. `<div id="parent">  <div id="child">stuff</div>  </div>` if parent width is 100px and child width is 50%, the child would be 50px wide.
 
-In folder `js`:
+##### In folder `js`:
 - **`constants.js`** contains:
   - An array of all emotions (for each emotion, the first string is the chart title and the second is the subtitle).
   - A boolean `RANDOMIZE` (`true` or `false`)
