@@ -3,11 +3,13 @@
  * Date: Jun 17, 2016
  */
 
+
+// GLOBALS
 var index = 0;  // index in EMOTIONS
 
 /* Historical data is returned in this format
     [{
-        time: <ms>,
+        time: <ms since trial start>,
         event: <'new' | 'move' | 'delete' | 'reset' | 'next-invalid' | 'next'>,
         point: <[x, y] | null>
     }]
@@ -76,6 +78,23 @@ function find_point_in_series(x, series) {
 var xAxisSettings, yAxisSettings, tooltipSettings, plotSeriesSettings, plotBand;
 
 $(function () {
+    // INITIALIZE FIREBASE
+    var config = {
+        apiKey: "AIzaSyBMrJXC5YQaPTdcGrcLXdxlzStYjsMgiAU",
+        authDomain: "emotion-dynamics.firebaseapp.com",
+        databaseURL: "https://emotion-dynamics.firebaseio.com",
+        storageBucket: "",
+    };
+    firebase.initializeApp(config);
+
+    //   Anonymous Authentication
+    var userId;
+    firebase.auth().signInAnonymously().then(function(user) {
+        userId = user.uid;
+        console.log('Signed in as ' + userId);
+    });
+
+    // EXPERIMENT SETTINGS
     if (RANDOMIZE) {
         shuffle_array(EMOTIONS);
     }
@@ -372,7 +391,10 @@ $(function () {
         credits: false,
     };
 
-    $('#trace-container').highcharts(traceChartSettings);
+    $('#trace-container').highcharts(traceChartSettings, function(chart) {
+        // This callback function executes after the charts are loaded
+        startTime = Date.now();  // reset time
+    });
 
     /* END OF HIGHCHARTS OPTIONS*/
 
@@ -380,9 +402,6 @@ $(function () {
     /* BUTTONS */
 
     function reset_data() {
-        if (typeof container == 'undefined') {
-            container = $();
-        }
         container.userSeries.setData([0, 0, 0, 0, 0]);
         userChart.get('user-data').remove();
         userChart.addSeries(userDataSeries);
@@ -429,15 +448,13 @@ $(function () {
             return;
         }
 
-        // save data
+        // Get data
         for (var pt in series.data) {
             var x = series.data[pt].x;
             data.push([x, series.data[pt].y, num2time(x)]);
         }
-        console.log(EMOTIONS[index][0]);
-        console.log(data);
 
-        // Add points
+        // Test adding missing points
         // var pts = get_all_points(data);
         // for (var i in pts) {
         //     if (!find_point_in_series(pts[i][0], series)) {
@@ -452,18 +469,28 @@ $(function () {
             point: null
         });
 
-        // Go to next or finish
-        index += 1;
-        if (index < EMOTIONS.length) {
-            userChart.setTitle({ text: EMOTIONS[index][0] }, { text: EMOTIONS[index][1] });
-            reset_data();
-        } else {
-            // Save data
-            console.log(userHistory);
-
-            // Show the final page
-            $('#experiment-page').addClass("hidden");
-            $('#finish-page').removeClass("hidden");
-        }
+        // Save data to firebase
+        var newDataKey = firebase.database().ref().child(userId).push().key;
+        var path = '/' + userId + '/' + newDataKey + '/';
+        var updates = {};
+        updates[path + 'emotion'] = EMOTIONS[index][0];
+        updates[path + 'original_data'] = data;
+        updates[path + 'full_data'] = get_all_points(data);
+        updates[path + 'history'] = userHistory;
+        firebase.database().ref().update(updates).then(function() {
+            // After saving, go to next or finish
+            index += 1;
+            if (index < EMOTIONS.length) {
+                userChart.setTitle({ text: EMOTIONS[index][0] }, { text: EMOTIONS[index][1] });
+                reset_data();
+                // reset history and time
+                userHistory.length = 0;
+                startTime = Date.now();
+            } else {
+                // Show the final page
+                $('#experiment-page').addClass("hidden");
+                $('#finish-page').removeClass("hidden");
+            }
+        });
     });
 });
