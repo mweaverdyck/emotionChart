@@ -1,4 +1,15 @@
+function wrong_ID() {
+    $("#uid-input").addClass("has-error");
+    // $("#validateTips").text(WRONG_ID_ALERT).addClass("ui-state-highlight");
+    // setTimeout(function() {
+    //     $("#validateTips").removeClass("ui-state-highlight", 1500);
+    // }, 500 );
+}
+
 $(function () {
+    // $("#id-dialog").modal('show');
+    // wrong_ID();
+
     $('#surprise').highcharts({
         chart: {
             type: 'line',

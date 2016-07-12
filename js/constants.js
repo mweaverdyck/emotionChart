@@ -66,6 +66,8 @@ var RANDOMIZE = true;
 
 var INCOMPLETE_ALERT = 'Please rate the emotional intensity in the second month.';
 
+var WRONG_ID_ALERT = "Invalid ID. Please contact experimenter";
+
 // Y axis range
 var MAX_Y = 100;
 var MIN_Y = -10;

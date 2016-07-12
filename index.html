@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Experiment</title>
-        <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
-        <script src="https://code.highcharts.com/highcharts.js"></script>
-        <script src="https://rawgithub.com/highslide-software/draggable-points/master/draggable-points.js"></script>
+        <script src="js/firebase.js"></script>
+        <script src="js/jquery.min.js"></script> 
+        <script src="js/highcharts.js"></script>
+        <script src="js/draggable-points.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/moving-trace.js"></script>
         <!-- <script src="get_missing_points.js"></script> -->
@@ -16,55 +16,77 @@
     </head>
 
     <body>
-        <!-- Pages -->
-        <div class="center-text" align="center">
-            <div id="page-1" align="center">
-                <div id="instr" class="more-top-padding">
-                    <p>Welcome! Here are some instructions.</p>
-                    <p>
-                        For example, the intensity of a surprise peaks at the first second and then gradually decreases. It 
-                        goes away at 1 minute and remains absent for the rest of 2 months.
-                    </p>
-                </div>
-                <div id="example-div" align="center">
-                    <div id="surprise"></div>
-                </div>
-            </div>
-
-            <div id="page-2" class="hidden" align="center">
-                <p class="above top-padding">Some other instructions. And try to draw surprise below.</p>
-                <p>Note the different time intervals.</p>
-                <div id="tips" class="panel panel-primary">
-                    <div class="panel-heading">Tips</div>
-                    <div class="panel-body">
-                        <ul>
-                            <li>Click on the chart to create a new point.</li>
-                            <li>Click on a point you created to remove it.</li>
-                            <li>Drag a point to change its position.</li>
-                            <li>Your line should cover the whole time period up to 2 months.</li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="practice-div" align="center">
-                    <iframe id="practice-frame" src="experiment.html" frameBorder="0" seamless="seamless" allowtransparency="true"></iframe>
-                </div>
-            </div>
-
-            <div id="page-3" class="hidden center" align="center">
-                <div>
-                    <p>In this experiment, you will see 60 different emotions or mental states. Please draw a line for each of them.</p>
-                    <p>If you understand the instructions, click below to start.</p>
-                </div>
-                <div id="start-div" align="center">
-                    <button id="startBtn" class="autocompare btn btn-primary" onclick="location.href='experiment.html';">Start</button>
+        <!-- Modal -->
+        <div id="id-dialog" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form class="form-inline" role="form" autocomplete="off">
+                        <div class="modal-body">
+                            <div id="uid-input" class="form-group">
+                                <label id="uid-instr" class="control-label">Please enter your ID:</label>
+                                <input type="text" class="form-control has-error">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <p id="validationTips"></p>
+                            <input type="submit" class="btn btn-primary">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <!-- Page controls -->
-        <div id="page-control">
-            <button id="prev-btn" class="autocompare btn btn-default hidden">Previous</button>
-            <button id="next-btn" class="autocompare btn btn-primary">Next</button>
+        <!-- Pages -->
+        <div id="pages">
+            <div class="center-text" align="center">
+                <div id="page-1" align="center">
+                    <div id="instr" class="more-top-padding">
+                        <p>Welcome! Here are some instructions.</p>
+                        <p>
+                            For example, the intensity of a surprise peaks at the first second and then gradually decreases. It 
+                            goes away at 1 minute and remains absent for the rest of 2 months.
+                        </p>
+                    </div>
+                    <div id="example-div" align="center">
+                        <div id="surprise"></div>
+                    </div>
+                </div>
+
+                <div id="page-2" class="hidden" align="center">
+                    <p class="above top-padding">Some other instructions. And try to draw surprise below.</p>
+                    <p>Note the different time intervals.</p>
+                    <div id="tips" class="panel panel-primary">
+                        <div class="panel-heading">Tips</div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>Click on the chart to create a new point.</li>
+                                <li>Click on a point you created to remove it.</li>
+                                <li>Drag a point to change its position.</li>
+                                <li>Your line should cover the whole time period up to 2 months.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="practice-div" align="center">
+                        <iframe id="practice-frame" src="experiment.html" frameBorder="0" seamless="seamless" allowtransparency="true"></iframe>
+                    </div>
+                </div>
+
+                <div id="page-3" class="hidden center" align="center">
+                    <div>
+                        <p>In this experiment, you will see 60 different emotions or mental states. Please draw a line for each of them.</p>
+                        <p>If you understand the instructions, click below to start.</p>
+                    </div>
+                    <div id="start-div" align="center">
+                        <button id="startBtn" class="autocompare btn btn-primary" onclick="location.href='experiment.html';">Start</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page controls -->
+            <div id="page-control">
+                <button id="prev-btn" class="autocompare btn btn-default hidden">Previous</button>
+                <button id="next-btn" class="autocompare btn btn-primary">Next</button>
+            </div>
         </div>
 
         <!-- JavaScripts -->
