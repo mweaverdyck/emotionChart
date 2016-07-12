@@ -72,10 +72,40 @@ function find_point_in_series(x, series) {
     return null;
 }
 
+function validate_chart(userChart, userHistory) {
+    var series = userChart.get('user-data'),
+        data = [];
+    var lastPt = find_point_in_series(16, series);
+    if (lastPt) {
+        return true;
+    }
+    // invalid
+    userChart.xAxis[0].addPlotLine({
+        id: 'warning-line',
+        value: 16,
+        color: 'red',
+        width: 1.5,
+    });
+
+    alert(INCOMPLETE_ALERT);
+
+    setTimeout(function () {
+        userChart.xAxis[0].removePlotLine('warning-line');
+    }, 1500);
+
+    userHistory.push({
+        time: Date.now() - startTime,
+        event: 'next-invalid',
+        point: null
+    });
+    return false;
+}
+
 /* END OF HELPER FUNCTIONS */
 
-
 var xAxisSettings, yAxisSettings, tooltipSettings, plotSeriesSettings, plotBand;
+
+/* END OF GLOBALS */
 
 $(function () {
     // INITIALIZE FIREBASE
@@ -423,28 +453,7 @@ $(function () {
     $('#nextBtn').click(function () {
 
         // Validate
-        var series = userChart.get('user-data'),
-            data = [];
-        var lastPt = find_point_in_series(16, series);
-        if (!lastPt) {
-            userChart.xAxis[0].addPlotLine({
-                id: 'warning-line',
-                value: 16,
-                color: 'red',
-                width: 1.5,
-            });
-
-            alert(INCOMPLETE_ALERT);
-
-            setTimeout(function () {
-                userChart.xAxis[0].removePlotLine('warning-line');
-            }, 1500);
-
-            userHistory.push({
-                time: Date.now() - startTime,
-                event: 'next-invalid',
-                point: null
-            });
+        if (!validate_chart(userChart, userHistory)) {
             return;
         }
 
@@ -473,7 +482,7 @@ $(function () {
         var newDataKey = firebase.database().ref().child(userId).push().key;
         var path = '/' + userId + '/' + newDataKey + '/';
         var updates = {};
-        updates[path + 'emotion'] = EMOTIONS[index][0];
+        updates[path + 'emotion'] = userChart.options.title.text;
         updates[path + 'original_data'] = data;
         updates[path + 'full_data'] = get_all_points(data);
         updates[path + 'history'] = userHistory;

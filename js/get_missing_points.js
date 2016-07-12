@@ -3,7 +3,7 @@ function get_missing_points(x1, y1, y2, num) {
     // return an array of the missing points
     var missingPts = [];
     for (var i = 1; i <= num; ++i) {
-        missingPts.push([x1 + i, y1 + (y2 - y1) * i/(num + 1)]);
+        missingPts.push([x1 + i, y1 + (y2 - y1) * i/(num + 1), num2time(x1 + i, true)]);
     }
     return missingPts;
 }

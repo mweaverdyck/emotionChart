@@ -69,3 +69,6 @@ var INCOMPLETE_ALERT = 'Please rate the emotional intensity in the second month.
 // Y axis range
 var MAX_Y = 100;
 var MIN_Y = -10;
+
+// Change this only if the domain url has changed
+var DOMAIN = 'http://metad.github.io';
