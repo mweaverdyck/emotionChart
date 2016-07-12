@@ -7,7 +7,7 @@ $(function () {
     // PREVENT CLOSING WINDOW
     window.onbeforeunload = function() {
         if (hookWindow) {
-            return "Do you want to leave this page? Changes you made will not be saved.";
+            return CLOSE_WINDOW_ALERT;
         }
     }
 
