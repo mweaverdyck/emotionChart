@@ -1,47 +1,30 @@
-function wrong_ID() {
-    $("#uid-input").addClass("has-error");
-    // $("#validateTips").text(WRONG_ID_ALERT).addClass("ui-state-highlight");
-    // setTimeout(function() {
-    //     $("#validateTips").removeClass("ui-state-highlight", 1500);
-    // }, 500 );
+/*
+ * Author: Meng Du
+ * Date: Jun 17, 2016
+ */
+
+
+var id;
+
+function valid_id(uid) {
+    if (uid === 'test' || uid.length === ID_LENGTH) {
+        return true;
+    }
+    return false;
 }
 
-$(function () {
-    // $("#id-dialog").modal('show');
-    // wrong_ID();
+function id_submission() {
+    id = $("#uid-input").val();
+    if (valid_id(id)) {
+        $("#id-dialog").modal('hide');
+        $('#pages').removeClass('hidden');
+        show_example();
+    } else {
+        $("#uid-field").addClass("has-error");
+    }
+}
 
-    $('#surprise').highcharts({
-        chart: {
-            type: 'line',
-            height: 500,
-        },
-        title: {
-            text: 'Surprise',
-        },
-        xAxis: xAxisSettings,
-        yAxis: yAxisSettings,
-        tooltip: tooltipSettings,
-        plotOptions: plotSeriesSettings,
-        credits: false,
-        series: [
-            {
-                data: [0, 0, 0, 0, 0, 95, 50, 20, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                pointStart: -4,
-                animation: {
-                    duration: 5000
-                },
-            }
-        ]
-    });
-
-    $('#surprise').highcharts().xAxis[0].addPlotBand(plotBand);
-});
-
-window.onload = function() {
-    // tell the practice chart (on 2nd page) to hide title and next button
-    var pracFrame = document.getElementById('practice-frame');
-    pracFrame.contentWindow.postMessage('hide', '*');
-
+function set_buttons(pracFrame) {
     $('#next-btn').click(function() {
         if (!$('#page-1').hasClass("hidden")) {  // on page 1
             $('#page-1').addClass("hidden");
@@ -67,4 +50,44 @@ window.onload = function() {
             $('#next-btn').removeClass("hidden");
         }
     });
-};
+
+    $('#start-btn').click(function() {
+        location.href = 'experiment.html?id=' + id;
+    });
+}
+
+function show_example() {
+    $('#surprise').highcharts({
+        chart: {
+            type: 'line',
+            height: 500,
+        },
+        title: {
+            text: 'Surprise',
+        },
+        xAxis: xAxisSettings,
+        yAxis: yAxisSettings,
+        tooltip: tooltipSettings,
+        plotOptions: plotSeriesSettings,
+        credits: false,
+        series: [
+            {
+                data: [0, 0, 0, 0, 0, 95, 50, 20, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                pointStart: -4,
+                animation: {
+                    duration: 5000
+                },
+            }
+        ]
+    });
+
+    $('#surprise').highcharts().xAxis[0].addPlotBand(plotBand);
+}
+
+
+$(function () {
+    $("#id-dialog").modal('show');
+
+    var pracFrame = document.getElementById('practice-frame');
+    set_buttons(pracFrame);
+});

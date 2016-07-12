@@ -9,7 +9,7 @@
         <script src="js/draggable-points.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/moving-trace.js"></script>
-        <!-- <script src="get_missing_points.js"></script> -->
+        <script src="js/get_missing_points.js"></script>
 
         <link href="css/chart.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,27 +17,24 @@
 
     <body>
         <!-- Modal -->
-        <div id="id-dialog" class="modal fade" role="dialog">
+        <div id="id-dialog" class="modal fade" data-keyboard="false" data-backdrop="static">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form class="form-inline" role="form" autocomplete="off">
-                        <div class="modal-body">
-                            <div id="uid-input" class="form-group">
-                                <label id="uid-instr" class="control-label">Please enter your ID:</label>
-                                <input type="text" class="form-control has-error">
-                            </div>
+                    <div class="modal-body">
+                        <div id="uid-field" class="form-group">
+                            <label id="uid-instr" class="control-label">Please enter your ID:</label>
+                            <input id="uid-input" type="text" class="form-control has-error" required>
                         </div>
-                        <div class="modal-footer">
-                            <p id="validationTips"></p>
-                            <input type="submit" class="btn btn-primary">
-                        </div>
-                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button onclick="id_submission()" class="btn btn-primary">Submit</button>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Pages -->
-        <div id="pages">
+        <div id="pages" class="hidden">
             <div class="center-text" align="center">
                 <div id="page-1" align="center">
                     <div id="instr" class="more-top-padding">
@@ -67,7 +64,7 @@
                         </div>
                     </div>
                     <div id="practice-div" align="center">
-                        <iframe id="practice-frame" src="experiment.html" frameBorder="0" seamless="seamless" allowtransparency="true"></iframe>
+                        <iframe id="practice-frame" src = 'experiment.html' frameBorder="0" seamless="seamless" allowtransparency="true"></iframe>
                     </div>
                 </div>
 
@@ -77,7 +74,7 @@
                         <p>If you understand the instructions, click below to start.</p>
                     </div>
                     <div id="start-div" align="center">
-                        <button id="startBtn" class="autocompare btn btn-primary" onclick="location.href='experiment.html';">Start</button>
+                        <button id="start-btn" class="autocompare btn btn-primary">Start</button>
                     </div>
                 </div>
             </div>
@@ -91,7 +88,7 @@
 
         <!-- JavaScripts -->
         <script src="js/constants.js"></script>
-        <script src="js/chart.js"></script>
+        <script src="js/globals.js"></script>
         <script src="js/moving-trace.js"></script>
         <script src="js/instruction.js"></script>
         <script src="js/instruction-msg-handler.js"></script>

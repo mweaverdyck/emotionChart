@@ -72,5 +72,8 @@ var WRONG_ID_ALERT = "Invalid ID. Please contact experimenter";
 var MAX_Y = 100;
 var MIN_Y = -10;
 
+// Valid ID length
+var ID_LENGTH = 5;
+
 // Change this only if the domain url has changed
 var DOMAIN = 'http://metad.github.io';
