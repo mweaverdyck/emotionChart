@@ -26,7 +26,6 @@ $(function () {
         firebaseUid = user.uid;
         console.log('Signed in as ' + firebaseUid);
 
-
         // save participant id to firebase user
         var parameters = window.location.search.substring(1);
         if (parameters.length > 0) {
