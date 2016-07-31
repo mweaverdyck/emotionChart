@@ -1,4 +1,4 @@
-# Emotion Dynamics
+Emotion Dynamics
 ---
 ## Contents
 - [Issues](#issues)
