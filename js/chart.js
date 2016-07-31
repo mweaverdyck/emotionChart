@@ -292,9 +292,10 @@ $(function () {
 
         // Save data to firebase
         var newDataKey = firebase.database().ref().child(firebaseUid).push().key;
-        var path = '/' + firebaseUid + '/' + newDataKey + '/';
+        var emotion = userChart.options.title.text;
+        var path = '/' + firebaseUid + '/' + emotion + '/';
         var updates = {};
-        updates[path + 'emotion'] = userChart.options.title.text;
+        updates[path + 'index'] = emotion_index + 1;
         updates[path + 'original_data'] = data;
         updates[path + 'full_data'] = get_all_points(data);
         updates[path + 'history'] = userHistory;
