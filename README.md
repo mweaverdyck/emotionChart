@@ -5,9 +5,9 @@
 - [Files](#files)
 - [How to make changes](#how-to-make-changes)
   - [HTML Tips](#some-html-tips)
-  - [Changing instructions](#changing-instructions)
-  - [Changing ID validation](#changing-id-validation)
-  - [Changing other variables](#changing-other-variables)
+  - [Change instructions](#changing-instructions)
+  - [Change ID validation](#changing-id-validation)
+  - [Change other variables](#changing-other-variables)
     - Variables in the `css` folder
       - [CSS Tips](#css-tips)
     - Variables in the `js` folder
@@ -28,14 +28,14 @@
 - Tags may also have other attributes, such as `id="xxx"` (a name to identify that tag in CSS/JavaScript), `align="center"`, etc.
 - `<br/>` is a line break
 
-#### Changing instructions
+#### Change instructions
 Instructions at the beginning are in `index.html`. The first `div` inside `body` contains the three pages, whose `id`s are `page-1`, `page-2` and `page-3`. In each page `div`, there is another `div` containing the paragraphs (`<p>`s). You can simply change the instructions there, or add a new paragraph by adding `<p>Some new instructions here.</p>`.
 
 Instructions at the end are in `experiment.html` -> `body` -> `div id="finish-page"`.
 
-#### Changing ID validation
+#### Change ID validation
 
-#### Changing other variables
+#### Change other variables
 ##### In folder `css`:
 
 `chart.css` defines the styles, mostly positions and sizes, of the html elements in `experiment.html` (stuff below the comment "Experiment Pages") and `index.html` (stuff below the comment "Instruction Page").
