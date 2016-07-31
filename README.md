@@ -64,7 +64,10 @@ Instructions at the end are in `experiment.html` -> `body` -> `div id="finish-pa
 - Other `hard-to-explain.js` which hopefully you don't need to change...
 
 ## How to get data
-- Log in [Firebase](firebase.google.com) with the lab gmail account, and click `Go to console` in the upper right corner.
+- Log in to [Firebase](https://firebase.google.com/) with the lab gmail account, and click `Go to console` in the upper right corner.
 - Select this project (`emotion dynamics`), then select `Database` on the left panel.
 - You should be able to view the JSON data in the database. Export the json data (`Export JSON`).
-- In the
+- Download this github repo as a zip (or `git clone` it), open `json-csv parser/parser.html`.
+- Drag the JSON file exported from Firebase to `parser.html` (or copy-paste all the contents)
+- You should be able to preview the `.csv` file on the webpage.
+- Click `Download the entire CSV` to download the data.
