@@ -1,0 +1,62 @@
+[
+    ["id_1", {
+        "emo1_full": {
+            "point1_label": "z",
+            "point1_x": "x",
+            "point1_y": "y",
+            "point20_label": "z",
+            "point20_x": "x",
+            "point20_y": "y"
+        },
+        "emo1_history": {
+            "event1_name": "z",
+            "event1_x": "x",
+            "event1_y": "y",
+            "event1_label": "l",
+            "event1_time": "t",
+            "event2_name": "z",
+            "event2_x": "x",
+            "event2_y": "y",
+            "event2_label": "l",
+            "event2_time": "t"
+        },
+        "emo1_original": {
+            "point1_label": "z",
+            "point1_x": "x",
+            "point1_y": "y",
+            "point2_label": "z",
+            "point2_x": "x",
+            "point2_y": "y"
+        }
+    }],
+    ["id_2", {
+        "emo1_full": {
+            "point1_label": "z",
+            "point1_x": "x",
+            "point1_y": "y",
+            "point20_label": "z",
+            "point20_x": "x",
+            "point20_y": "y"
+        },
+        "emo1_history": {
+            "event1_name": "z",
+            "event1_x": "x",
+            "event1_y": "y",
+            "event1_label": "l",
+            "event1_time": "t",
+            "event2_name": "z",
+            "event2_x": "x",
+            "event2_y": "y",
+            "event2_label": "l",
+            "event2_time": "t"
+        },
+        "emo1_original": {
+            "point1_label": "z",
+            "point1_x": "x",
+            "point1_y": "y",
+            "point2_label": "z",
+            "point2_x": "x",
+            "point2_y": "y"
+        }
+    }]
+]

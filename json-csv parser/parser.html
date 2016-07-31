@@ -24,6 +24,7 @@
 <!-- site styles and JS -->
 <link href="assets/site.css" type="text/css" rel="stylesheet" />
 <link href="assets/github.css" type="text/css" rel="stylesheet" />
+<script src="preprocess.js"></script>
 <script src="assets/site.js"></script>
 <script src="assets/highlight.pack.js"></script>
 
@@ -71,6 +72,7 @@
         hljs.highlightBlock($(".json code").get(0));
 
       // convert to CSV, make available
+      json = preprocess(json);
       doCSV(json);
     } else {
       // Show error.

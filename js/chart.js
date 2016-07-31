@@ -70,7 +70,7 @@ $(function () {
         userHistory.push({
             time: Date.now() - startTime,
             event: point ? 'move' : 'new',
-            point: [x, y]
+            point: [x, y, num2time(this.x, true)]
         });
     }
 
@@ -109,7 +109,7 @@ $(function () {
                     userHistory.push({
                         time: Date.now() - startTime,
                         event: 'delete',
-                        point: [this.x, this.y]
+                        point: [this.x, this.y, num2time(this.x, true)]
                     });
 
                     if (this.series.data.length > 1 && this.x > 0) {
