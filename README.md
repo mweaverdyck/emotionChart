@@ -5,7 +5,12 @@
 - [Files](#files)
 - [How to make changes](#how-to-make-changes)
   - [HTML Tips](#some-html-tips)
-  - [CSS Tips](#css-tips)
+  - [Changing instructions](#changing-instructions)
+  - [Changing ID validation](#changing-id-validation)
+  - [Changing other variables](#changing-other-variables)
+    - [Variables in the `css` folder](#In-folder-`css`:)
+      - [CSS Tips](#css-tips)
+    - [Variables in the `js` folder](#In-folder-`js`:)
 - [How to get data](#how-to-get-data)
 
 ## Issues
@@ -17,7 +22,7 @@
 
 ## How to make changes
 ###### Some HTML Tips
-- `.html` files consists of a bunch of tags, one nested in another.
+- `.html` files consists of a bunch of tags, one nested in another to form a tree-like structure (called the "DOM" tree).
 - Each tag has an opening part (e.g. `<body>`, `<div>`, `<p>`) and a closing part (`</body>`, `</div>`, `</p>`).
 - Classes are styles such as fonts, sizes and positions, and they are defined in `.css` files. They can be applied to tags like this: `<div class="some-class">...</div>`, or this: `<p class="one-class another-class">...</p>`
 - Tags may also have other attributes, such as `id="xxx"` (a name to identify that tag in CSS/JavaScript), `align="center"`, etc.
@@ -27,6 +32,8 @@
 Instructions at the beginning are in `index.html`. The first `div` inside `body` contains the three pages, whose `id`s are `page-1`, `page-2` and `page-3`. In each page `div`, there is another `div` containing the paragraphs (`<p>`s). You can simply change the instructions there, or add a new paragraph by adding `<p>Some new instructions here.</p>`.
 
 Instructions at the end are in `experiment.html` -> `body` -> `div id="finish-page"`.
+
+#### Changing ID validation
 
 #### Changing other variables
 ##### In folder `css`:
@@ -58,3 +65,7 @@ Instructions at the end are in `experiment.html` -> `body` -> `div id="finish-pa
 - Other `hard-to-explain.js` which hopefully you don't need to change...
 
 ## How to get data
+- Log in [Firebase](firebase.google.com) with the lab gmail account, and click `Go to console` in the upper right corner.
+- Select this project (`emotion dynamics`), then select `Database` on the left panel.
+- You should be able to view the JSON data in the database. Export the json data (`Export JSON`).
+- In the
