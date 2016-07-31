@@ -8,9 +8,9 @@
   - [Changing instructions](#changing-instructions)
   - [Changing ID validation](#changing-id-validation)
   - [Changing other variables](#changing-other-variables)
-    - [Variables in the `css` folder](#In-folder-`css`:)
+    - Variables in the `css` folder
       - [CSS Tips](#css-tips)
-    - [Variables in the `js` folder](#In-folder-`js`:)
+    - Variables in the `js` folder
 - [How to get data](#how-to-get-data)
 
 ## Issues
