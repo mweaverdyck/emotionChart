@@ -1,24 +1,40 @@
 # Emotion Dynamics
-Issues
----
+## Contents
+- [Issues](#issues)
+- [Files](#files)
+- [How to make changes](#how-to-make-changes)
+  - [HTML Tips](#some-html-tips)
+  - [Change instructions](#change-instructions)
+  - [Change ID validation](#change-id-validation)
+  - [Change other variables](#change-other-variables)
+    - Variables in the `css` folder
+      - [CSS Tips](#css-tips)
+    - Variables in the `js` folder
+- [How to get data](#how-to-get-data)
+
+## Issues
 - Instructions
 - Mobile compatibility (traces left?)
 
-How to make changes
----
+## Files
+
+
+## How to make changes
 ###### Some HTML Tips
-- `.html` files consists of a bunch of tags, one nested in another.
+- `.html` files consists of a bunch of tags, one nested in another to form a tree-like structure (called the "DOM" tree).
 - Each tag has an opening part (e.g. `<body>`, `<div>`, `<p>`) and a closing part (`</body>`, `</div>`, `</p>`).
 - Classes are styles such as fonts, sizes and positions, and they are defined in `.css` files. They can be applied to tags like this: `<div class="some-class">...</div>`, or this: `<p class="one-class another-class">...</p>`
 - Tags may also have other attributes, such as `id="xxx"` (a name to identify that tag in CSS/JavaScript), `align="center"`, etc.
 - `<br/>` is a line break
 
-#### Changing instructions
+#### Change instructions
 Instructions at the beginning are in `index.html`. The first `div` inside `body` contains the three pages, whose `id`s are `page-1`, `page-2` and `page-3`. In each page `div`, there is another `div` containing the paragraphs (`<p>`s). You can simply change the instructions there, or add a new paragraph by adding `<p>Some new instructions here.</p>`.
 
 Instructions at the end are in `experiment.html` -> `body` -> `div id="finish-page"`.
 
-#### Changing other variables
+#### Change ID validation
+
+#### Change other variables
 ##### In folder `css`:
 
 `chart.css` defines the styles, mostly positions and sizes, of the html elements in `experiment.html` (stuff below the comment "Experiment Pages") and `index.html` (stuff below the comment "Instruction Page").
@@ -45,4 +61,13 @@ Instructions at the end are in `experiment.html` -> `body` -> `div id="finish-pa
 
 - `get_missing_points.js` is just a function calculating positions of the absent points in the middle (e.g. when you click only on x=1, x=3 and x=5 it calculates the intersection points of your line and x=2, x=4)
 
-- Some other `hard-to-explain.js` which hopefully you don't need to change...
+- Other `hard-to-explain.js` which hopefully you don't need to change...
+
+## How to get data
+- Log in to [Firebase](https://firebase.google.com/) with the lab gmail account, and click `Go to console` in the upper right corner.
+- Select this project (`emotion dynamics`), then select `Database` on the left panel.
+- You should be able to view the JSON data in the database. Export the json data (`Export JSON`).
+- Download this github repo as a zip (or `git clone` it), open `json-csv parser/parser.html`.
+- Drag the JSON file exported from Firebase to `parser.html` (or copy-paste all the contents)
+- You should be able to preview the `.csv` file on the webpage.
+- Click `Download the entire CSV` to download the data.
