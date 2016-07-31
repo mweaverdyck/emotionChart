@@ -1,19 +1,21 @@
 # Emotion Dynamics
-## Contents
 ---
+## Contents
 - [Issues](#issues)
 - [Files](#files)
 - [How to make changes](#how-to-make-changes)
   - [HTML Tips](#some-html-tips)
   - [CSS Tips](#css-tips)
+- [How to get data](#how-to-get-data)
 
 ## Issues
----
 - Instructions
 - Mobile compatibility (traces left?)
 
+## Files
+
+
 ## How to make changes
----
 ###### Some HTML Tips
 - `.html` files consists of a bunch of tags, one nested in another.
 - Each tag has an opening part (e.g. `<body>`, `<div>`, `<p>`) and a closing part (`</body>`, `</div>`, `</p>`).
@@ -53,4 +55,6 @@ Instructions at the end are in `experiment.html` -> `body` -> `div id="finish-pa
 
 - `get_missing_points.js` is just a function calculating positions of the absent points in the middle (e.g. when you click only on x=1, x=3 and x=5 it calculates the intersection points of your line and x=2, x=4)
 
-- Some other `hard-to-explain.js` which hopefully you don't need to change...
+- Other `hard-to-explain.js` which hopefully you don't need to change...
+
+## How to get data
