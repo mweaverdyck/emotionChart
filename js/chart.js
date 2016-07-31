@@ -312,9 +312,9 @@ $(function () {
                 $('#experiment-page').addClass("hidden");
                 $('#finish-page').removeClass("hidden");
                 // send end time
-                firebase.database().ref('/' + firebaseUid).set({
-                    end_time: (new Date()).toUTCString()
-                });
+                var endTimeUpdate = {};
+                endTimeUpdate['/' + firebaseUid + '/end_time'] = (new Date()).toUTCString();
+                firebase.database().ref().update(endTimeUpdate);
                 hookWindow = false;
             }
         });
