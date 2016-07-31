@@ -4,9 +4,9 @@
 - [Files](#files)
 - [How to make changes](#how-to-make-changes)
   - [HTML Tips](#some-html-tips)
-  - [Change instructions](#changing-instructions)
-  - [Change ID validation](#changing-id-validation)
-  - [Change other variables](#changing-other-variables)
+  - [Change instructions](#change-instructions)
+  - [Change ID validation](#change-id-validation)
+  - [Change other variables](#change-other-variables)
     - Variables in the `css` folder
       - [CSS Tips](#css-tips)
     - Variables in the `js` folder
