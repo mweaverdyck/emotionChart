@@ -32,7 +32,8 @@ $(function () {
             hookWindow = true;
             var userId = parameters.split("=")[1];  // get id from url parameter
             firebase.database().ref('/' + firebaseUid).set({
-                id: userId
+                id: userId,
+                start_time: (new Date()).toUTCString()
             });
         } else {
             // no parameter, assume it's practice (surprise)
