@@ -1,10 +1,18 @@
 # Emotion Dynamics
-Issues
+## Contents
+---
+- [Issues](#issues)
+- [Files](#files)
+- [How to make changes](#how-to-make-changes)
+  - [HTML Tips](#some-html-tips)
+  - [CSS Tips](#css-tips)
+
+## Issues
 ---
 - Instructions
 - Mobile compatibility (traces left?)
 
-How to make changes
+## How to make changes
 ---
 ###### Some HTML Tips
 - `.html` files consists of a bunch of tags, one nested in another.
