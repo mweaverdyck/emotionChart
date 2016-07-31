@@ -70,7 +70,7 @@ $(function () {
         userHistory.push({
             time: Date.now() - startTime,
             event: point ? 'move' : 'new',
-            point: [x, y, num2time(this.x, true)]
+            point: [x, y, num2time(x, true)]
         });
     }
 
