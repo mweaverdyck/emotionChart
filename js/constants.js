@@ -1,5 +1,6 @@
 // A list of emotions and their instructions
 var EMOTIONS = [
+	// The first character of an emotion must be capitalized! (for the json-csv parser to work)
 	['Affection', ''],	// ['Title', 'Subtitle']
 	['Disgust', ''],
 	['Intrigue', ''],
