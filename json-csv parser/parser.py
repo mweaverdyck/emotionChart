@@ -101,7 +101,13 @@ def parse(json_obj, full_data_file, history_file, original_data_file):
                 history_header_index += 1
 
             # original_data
+            csv_original_data_row.append(subject[emotion]["index"])
+            original_header_index += 1
             for point in json_original_data:
+                label = str(point[2])
+                while label not in data_header[original_header_index]:
+                    csv_original_data_row.append('')
+                    original_header_index += 1
                 csv_original_data_row.append(point[0])
                 csv_original_data_row.append(point[1])
                 original_header_index += 2
@@ -109,6 +115,7 @@ def parse(json_obj, full_data_file, history_file, original_data_file):
                 csv_original_data_row.append("")
                 original_header_index += 1
 
+        # write to files
         full_data_file.writerow(csv_full_data_row)
         history_file.writerow(csv_history_row)
         original_data_file.writerow(csv_original_data_row)
