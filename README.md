@@ -39,6 +39,10 @@
   - `jquery.min.js`: directly downloaded from jQuery, which is similar to Bootstrap.
   - `highcharts.js`: directly downloaded from [Highcharts](http://www.highcharts.com/), which is a JS library with beautiful charts
   - `draggable-points.js`: downloaded from [here](http://www.highcharts.com/plugin-registry/single/3/Draggable%20Points). It's a plugin for Highcharts that allows you to drag points. The moving trajectories are also based on this.
+- In `css` folder:
+  - `chart.css` defines the styles, mostly positions and sizes, of the html elements in `experiment.html` (stuff below the comment "Experiment Pages") and `index.html` (stuff below the comment "Instruction Page").
+  - `bootstrap.min.css` was directly downloaded from Bootstrap.
+- `json-csv parser folder`: contains a python program to parse the Firebase json data files to csv files, as well as example data and results.
 
 ## How to make changes
 ###### Some HTML Tips
@@ -59,7 +63,6 @@ Currently a "valid" ID is either anything 5 characters long, or "test". You can 
 #### Change other variables
 ##### In folder `css`:
 
-`chart.css` defines the styles, mostly positions and sizes, of the html elements in `experiment.html` (stuff below the comment "Experiment Pages") and `index.html` (stuff below the comment "Instruction Page").
 
 ###### CSS Tips
 - A css item contains: a name + a `{` + a bunch of styles + a `}`
