@@ -45,6 +45,7 @@ def parse(json_obj, full_data_file, history_file, original_data_file):
             point_label = subject[emotion]["full_data"][pt][2]
             data_header.append(emotion + "/" + str(point_label) + "/x")
             data_header.append(emotion + "/" + str(point_label) + "/y")
+        # create history header
         for event in range(1, max_history_lengths[emotion_index] + 1):
             history_header.append(emotion + "/event_" + str(event) + "/name")
             history_header.append(emotion + "/event_" + str(event) + "/time")
