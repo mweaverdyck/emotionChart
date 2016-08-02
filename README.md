@@ -1,4 +1,4 @@
-# Emotion Dynamics
+# Emotion Dynamics - Docs
 ## Contents
 - [Issues](#issues)
 - [Files](#files)
@@ -10,11 +10,12 @@
     - Variables in the `css` folder
       - [CSS Tips](#css-tips)
     - Variables in the `js` folder
-- [How to get data](#how-to-get-data)
+- [How to get the data](#how-to-get-the-data)
+- [How to read the data](#how-to-read-the-data)
 
 ## Issues
-- Instructions
-- Mobile compatibility (traces left?)
+- Instructions have not been finished yet
+- (Mobile compatibility?)
 
 ## Files
 
@@ -33,6 +34,7 @@ Instructions at the beginning are in `index.html`. The first `div` inside `body`
 Instructions at the end are in `experiment.html` -> `body` -> `div id="finish-page"`.
 
 #### Change ID validation
+Currently a "valid" ID is either anything 5 characters long, or "test". You can changes this in `instruction.js`, `function valid_id(uid)`. Just change this if condition to whatever you want. (Note: the `ID_LENGTH` variable is stored in `constants.js`.)
 
 #### Change other variables
 ##### In folder `css`:
@@ -63,11 +65,17 @@ Instructions at the end are in `experiment.html` -> `body` -> `div id="finish-pa
 
 - Other `hard-to-explain.js` which hopefully you don't need to change...
 
-## How to get data
+## How to get the data
 - Log in to [Firebase](https://firebase.google.com/) with the lab gmail account, and click `Go to console` in the upper right corner.
 - Select this project (`emotion dynamics`), then select `Database` on the left panel.
 - You should be able to view the JSON data in the database. Export the json data (`Export JSON`).
-- Download this github repo as a zip (or `git clone` it), open `json-csv parser/parser.html`.
-- Drag the JSON file exported from Firebase to `parser.html` (or copy-paste all the contents)
-- You should be able to preview the `.csv` file on the webpage.
-- Click `Download the entire CSV` to download the data.
+- From this GitHub repo, get `parser.py` in `json-csv parser` folder.
+- Put `parser.py` and the json data file in the same folder, and then run `parser.py` with the name of the data file as a command line parameter, like this:
+
+  `python parser.py example_data.json`
+- You should get the `.csv` files in the same folder
+
+## How to read the data
+Data is organized in this way:
+- Data file
+  - Subject 1
