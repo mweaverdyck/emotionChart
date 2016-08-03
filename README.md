@@ -95,7 +95,7 @@ There are three data files:
 - `history` contains the times and events a participants had, e.g. creating new point, moving a point, reset, etc.
 - `original_data` is similar to `full_data` but it only contains the points clicked by participants.
 
-Data is organized in this way:
+Data are organized in this way:
 - File 1: Full data
   - Subject 1
     - ID
