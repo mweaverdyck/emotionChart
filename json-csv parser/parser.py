@@ -61,6 +61,8 @@ def parse(json_obj, full_data_file, history_file, original_data_file):
     # 2) Get Subject Data
     for firebaseSubjectId in json_obj:
         subject = json_obj[firebaseSubjectId]
+        if "id" not in subject:  # invalid subject?
+            continue
         subject_id = subject["id"]
         start_time = subject["start_time"]
         if "end_time" in subject:
