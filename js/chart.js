@@ -52,7 +52,7 @@ $(function () {
 
     // EXPERIMENT SETTINGS
     if (RANDOMIZE) {
-        shuffle_array(EMOTIONS);
+        EMOTIONS = shuffle_array(EMOTIONS);
     }
 
     var chartClickFunc = function (e) {
