@@ -10,9 +10,10 @@ $(document).ready(function() {
         // }
 
         if (event.data === 'true') {
-            $('#page-2').addClass("hidden");
-            $('#page-3').removeClass("hidden");
-            $('#next-btn').addClass("hidden");
+            window.scrollTo(0, 0);
+            $('#page-2').hide();
+            $('#page-3').show();
+            $('#next-btn').hide();
         }
     });
 });

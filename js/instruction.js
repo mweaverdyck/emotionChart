@@ -17,7 +17,7 @@ function id_submission() {
     id = $("#uid-input").val();
     if (valid_id(id)) {
         $("#id-dialog").modal('hide');
-        $('#pages').removeClass('hidden');
+        $('#pages').show();
         show_example();
     } else {
         $("#uid-field").addClass("has-error");
@@ -26,12 +26,13 @@ function id_submission() {
 
 function set_buttons(pracFrame) {
     $('#next-btn').click(function() {
-        if (!$('#page-1').hasClass("hidden")) {  // on page 1
-            $('#page-1').addClass("hidden");
-            $('#page-2').removeClass("hidden");
-            $('#prev-btn').removeClass("hidden");
+        if (!$('#page-1').is(':hidden')) {  // on page 1
+            window.scrollTo(0, 0);
+            $('#page-1').hide();
+            $('#page-2').show();
+            $('#prev-btn').show();
         }
-        else if (!$('#page-2').hasClass("hidden")) {  // on page 2
+        else if (!$('#page-2').is(':hidden')) {  // on page 2
             // hit the hidden next button of inner frame
             pracFrame.contentWindow.postMessage('next', '*');
             // instruction-msg-handler.js will do the rest
@@ -39,15 +40,16 @@ function set_buttons(pracFrame) {
     });
 
     $('#prev-btn').click(function() {
-        if (!$('#page-2').hasClass("hidden")) {  // on page 2
-            $('#page-2').addClass("hidden");
-            $('#page-1').removeClass("hidden");
-            $('#prev-btn').addClass("hidden");
+        window.scrollTo(0, 0);
+        if (!$('#page-2').is(':hidden')) {  // on page 2
+            $('#page-2').hide();
+            $('#page-1').show();
+            $('#prev-btn').hide();
         }
-        else if (!$('#page-3').hasClass("hidden")) {  // on page 3
-            $('#page-3').addClass("hidden");
-            $('#page-2').removeClass("hidden");
-            $('#next-btn').removeClass("hidden");
+        else if (!$('#page-3').is(':hidden')) {  // on page 3
+            $('#page-3').hide();
+            $('#page-2').show();
+            $('#next-btn').show();
         }
     });
 
@@ -86,8 +88,14 @@ function show_example() {
 
 
 $(function () {
+    $('#prev-btn').hide();
+    $('#page-2').hide();
+    $('#page-3').hide();
+    $('#page').hide();
     $("#id-dialog").modal('show');
 
     var pracFrame = document.getElementById('practice-frame');
     set_buttons(pracFrame);
+    document.getElementById("uid-input").value = "test";
+    id_submission();
 });
