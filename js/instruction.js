@@ -96,6 +96,4 @@ $(function () {
 
     var pracFrame = document.getElementById('practice-frame');
     set_buttons(pracFrame);
-    document.getElementById("uid-input").value = "test";
-    id_submission();
 });

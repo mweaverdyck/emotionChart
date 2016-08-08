@@ -35,10 +35,10 @@ p {
 	height: 100%;
 }
 #practice-div {
-	width: 850px;
-	width: 80vw;
-	height: 700px;
-	height: 85vh;
+	width: 850px;	/* because some old browsers might not support the vw/vh units, the pixel values are here for them to fall back to */
+	width: 80vw;	/* vw means viewport width; 90vh means 90% of the current window width */
+	height: 800px;
+	height: 90vh;	/* vh means viewport height; 90vh means 90% of the current window height */
 	margin-top: -70px;
 }
 #practice-frame {
