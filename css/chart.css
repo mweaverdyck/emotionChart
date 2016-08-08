@@ -27,7 +27,7 @@ p {
 #example-div {
 	width: 800px;
 	height: 500px;
-	width: 60vw;
+	width: 70vw;
 	margin: 40px auto 0 auto;
 }
 #example {
@@ -36,9 +36,9 @@ p {
 }
 #practice-div {
 	width: 850px;
+	width: 80vw;
 	height: 700px;
-	width: 70vw;
-	height: 95vh;
+	height: 85vh;
 	margin-top: -70px;
 }
 #practice-frame {
@@ -74,12 +74,8 @@ p {
 	text-align: center;
 }
 #tips {
-	width: auto;
-	min-width: 100px;
-	float: left;
-	bottom: 0;
-	margin: 20px;
-	z-index: 10;
+	width: 500px;
+	margin: auto;
 	text-align: left;
 }
 .hidden {
