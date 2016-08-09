@@ -5,9 +5,7 @@
 
 $(document).ready(function() {
     window.addEventListener('message', function(event) {
-        console.log([event.origin, DOMAIN]);
         if (event.origin.indexOf(DOMAIN) === -1) {  // Unknown data origin
-            console.log('?');
             return;
         }
 
