@@ -77,4 +77,4 @@ var MIN_Y = -10;
 var ID_LENGTH = 5;
 
 // Change this only if the domain url has changed
-var DOMAIN = 'https://metad.github.io';
+var DOMAIN = '://metad.github.io';
