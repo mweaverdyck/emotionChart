@@ -20,6 +20,20 @@ var hookWindow = false;
 
 /* HELPER FUNCTIONS */
 
+function hide_page(page) {
+    page.css('position', 'absolute');
+    page.css('top', '-9999px');
+}
+
+function show_page(page) {
+    page.css('position', 'static');
+    page.css('top', '0');
+}
+
+function page_is_shown(page) {
+    return page.css('position') == 'static';
+}
+
 function shuffle_array(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));

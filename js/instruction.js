@@ -29,10 +29,10 @@ function set_buttons(pracFrame) {
         if (!$('#page-1').is(':hidden')) {  // on page 1
             window.scrollTo(0, 0);
             $('#page-1').hide();
-            $('#page-2').show();
+            show_page($('#page-2'));
             $('#prev-btn').show();
         }
-        else if (!$('#page-2').is(':hidden')) {  // on page 2
+        else if (page_is_shown($('#page-2'))) {  // on page 2
             // hit the hidden next button of inner frame
             pracFrame.contentWindow.postMessage('next', '*');
             // instruction-msg-handler.js will do the rest
@@ -41,14 +41,14 @@ function set_buttons(pracFrame) {
 
     $('#prev-btn').click(function() {
         window.scrollTo(0, 0);
-        if (!$('#page-2').is(':hidden')) {  // on page 2
-            $('#page-2').hide();
+        if (page_is_shown($('#page-2'))) {  // on page 2
+            hide_page($('#page-2'));
             $('#page-1').show();
             $('#prev-btn').hide();
         }
         else if (!$('#page-3').is(':hidden')) {  // on page 3
             $('#page-3').hide();
-            $('#page-2').show();
+            show_page($('#page-2'));
             $('#next-btn').show();
         }
     });
@@ -89,7 +89,7 @@ function show_example() {
 
 $(function () {
     $('#prev-btn').hide();
-    $('#page-2').hide();
+    hide_page($('#page-2'));
     $('#page-3').hide();
     $('#page').hide();
     $("#id-dialog").modal('show');

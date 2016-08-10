@@ -11,7 +11,7 @@ $(document).ready(function() {
 
         if (event.data === 'true') {
             window.scrollTo(0, 0);
-            $('#page-2').hide();
+            hide_page($('#page-2'));
             $('#page-3').show();
             $('#next-btn').hide();
         }
